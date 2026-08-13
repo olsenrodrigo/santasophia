@@ -1,100 +1,73 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Send } from "lucide-react";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
+import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { apiRequest } from "@/lib/queryClient";
 import { trackEvent } from "@/lib/analytics";
 
-const contactFormSchema = z.object({
-  name: z.string().trim().min(2, "Informe seu nome."),
-  phone: z.string().trim().min(8, "Informe um telefone válido."),
-  email: z.string().trim().email("Informe um e-mail válido."),
-  objective: z.enum(["Imóveis", "Veículos", "Pesados", "Empresas", "Outro"]),
-  message: z.string().trim().min(2, "Conte brevemente o seu objetivo."),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
-
-const defaultValues: ContactFormData = {
-  name: "",
-  phone: "",
-  email: "",
-  objective: "Imóveis",
-  message: "",
-};
-
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const { register, handleSubmit, control, reset, formState: { errors, isSubmitting } } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues,
-  });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  async function onSubmit(data: ContactFormData) {
-    setStatus("idle");
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const fields = new FormData(form);
+    const objective = String(fields.get("objective") ?? "");
+
+    setStatus("submitting");
     try {
-      await apiRequest("POST", "/api/contact", {
-        name: data.name,
-        phone: data.phone,
-        email: data.email,
-        message: `Objetivo: ${data.objective}\n\n${data.message}`,
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: String(fields.get("name") ?? ""),
+          phone: String(fields.get("phone") ?? ""),
+          email: String(fields.get("email") ?? ""),
+          message: `Objetivo: ${objective}\n\n${String(fields.get("message") ?? "")}`,
+        }),
       });
-      trackEvent("form_submit", { page: window.location.pathname, objective: data.objective });
+      if (!response.ok) throw new Error(`Falha no envio: ${response.status}`);
+
+      trackEvent("form_submit", { page: window.location.pathname, objective });
       setStatus("success");
-      reset(defaultValues);
+      form.reset();
     } catch {
       setStatus("error");
     }
   }
 
+  const isSubmitting = status === "submitting";
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 rounded-xl border border-border bg-background p-6 shadow-card md:p-8" noValidate>
+    <form onSubmit={onSubmit} className="space-y-5 rounded-xl border border-border bg-background p-6 shadow-card md:p-8">
       <div>
         <Label htmlFor="contact-name">Nome</Label>
-        <Input id="contact-name" autoComplete="name" className="mt-2" aria-invalid={Boolean(errors.name)} {...register("name")} />
-        {errors.name ? <p className="mt-1 text-sm text-destructive">{errors.name.message}</p> : null}
+        <Input id="contact-name" name="name" autoComplete="name" minLength={2} required className="mt-2" />
       </div>
       <div className="grid gap-5 md:grid-cols-2">
         <div>
           <Label htmlFor="contact-phone">Telefone</Label>
-          <Input id="contact-phone" type="tel" inputMode="tel" autoComplete="tel" className="mt-2" aria-invalid={Boolean(errors.phone)} {...register("phone")} />
-          {errors.phone ? <p className="mt-1 text-sm text-destructive">{errors.phone.message}</p> : null}
+          <Input id="contact-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" minLength={8} required className="mt-2" />
         </div>
         <div>
           <Label htmlFor="contact-email">E-mail</Label>
-          <Input id="contact-email" type="email" autoComplete="email" className="mt-2" aria-invalid={Boolean(errors.email)} {...register("email")} />
-          {errors.email ? <p className="mt-1 text-sm text-destructive">{errors.email.message}</p> : null}
+          <Input id="contact-email" name="email" type="email" autoComplete="email" required className="mt-2" />
         </div>
       </div>
       <div>
         <Label htmlFor="contact-objective">Objetivo</Label>
-        <Controller
-          name="objective"
-          control={control}
-          render={({ field }) => (
-            <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger id="contact-objective" className="mt-2 w-full"><SelectValue placeholder="Selecione seu objetivo" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Imóveis">Imóveis</SelectItem>
-                <SelectItem value="Veículos">Veículos</SelectItem>
-                <SelectItem value="Pesados">Caminhões e veículos pesados</SelectItem>
-                <SelectItem value="Empresas">Empresas</SelectItem>
-                <SelectItem value="Outro">Outro objetivo</SelectItem>
-              </SelectContent>
-            </Select>
-          )}
-        />
+        <select id="contact-objective" name="objective" defaultValue="Imóveis" required className="mt-2 flex min-h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <option value="Imóveis">Imóveis</option>
+          <option value="Veículos">Veículos</option>
+          <option value="Pesados">Caminhões e veículos pesados</option>
+          <option value="Empresas">Empresas</option>
+          <option value="Outro">Outro objetivo</option>
+        </select>
       </div>
       <div>
         <Label htmlFor="contact-message">Mensagem</Label>
-        <Textarea id="contact-message" rows={5} className="mt-2" aria-invalid={Boolean(errors.message)} placeholder="Conte o que você quer conquistar e em quanto tempo gostaria de realizar." {...register("message")} />
-        {errors.message ? <p className="mt-1 text-sm text-destructive">{errors.message.message}</p> : null}
+        <Textarea id="contact-message" name="message" rows={5} minLength={2} required className="mt-2" placeholder="Conte o que você quer conquistar e em quanto tempo gostaria de realizar." />
       </div>
       <Button type="submit" disabled={isSubmitting} className="min-h-12 w-full bg-cta font-bold text-primary hover:bg-highlight md:w-auto">
         {isSubmitting ? <Loader2 className="size-5 animate-spin" aria-hidden="true" /> : <Send className="size-5" aria-hidden="true" />}

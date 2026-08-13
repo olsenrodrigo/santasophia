@@ -13,6 +13,7 @@ const allowlist = [
   "@google/generative-ai",
   "axios",
   "cors",
+  "compression",
   "date-fns",
   "drizzle-orm",
   "drizzle-zod",

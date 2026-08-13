@@ -11,7 +11,7 @@ interface PageHeroProps {
 export function PageHero({ h1, eyebrow = "Santa Sophia Consórcios", lede, path }: PageHeroProps) {
   return (
     <section className="relative overflow-hidden bg-primary-deep py-20 text-primary-foreground md:py-28">
-      <img src={symbol} alt="" width="564" height="512" aria-hidden="true" className="pointer-events-none absolute -right-24 top-1/2 w-96 -translate-y-1/2 opacity-10" />
+      <img src={symbol} alt="" width="564" height="512" aria-hidden="true" className="pointer-events-none absolute -right-24 top-1/2 hidden w-96 -translate-y-1/2 opacity-10 md:block" />
       <div className="container-custom relative z-10">
         <Breadcrumbs path={path} />
         <p className="eyebrow-text mb-5 mt-8 text-highlight">{eyebrow}</p>

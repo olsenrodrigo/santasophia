@@ -47,7 +47,7 @@ export default function Home() {
   return (
     <Layout>
       <section className="relative overflow-hidden bg-primary-deep py-20 text-primary-foreground md:py-28">
-        <img src={symbol} alt="" width="564" height="512" aria-hidden="true" className="pointer-events-none absolute -right-28 top-1/2 w-[32rem] -translate-y-1/2 opacity-10" />
+        <img src={symbol} alt="" width="564" height="512" aria-hidden="true" className="pointer-events-none absolute -right-28 top-1/2 hidden w-[32rem] -translate-y-1/2 opacity-10 md:block" />
         <div className="container-custom relative z-10">
           <p className="eyebrow-text text-highlight">Santa Sophia Consórcios</p>
           <h1 className="mt-5 max-w-5xl text-balance text-[clamp(2.25rem,5vw,3.75rem)] leading-tight text-primary-foreground">Seu próximo grande passo não precisa esperar.</h1>

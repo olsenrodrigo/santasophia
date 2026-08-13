@@ -21,7 +21,7 @@ export function MethodSteps() {
     <ol className="grid gap-8 md:grid-cols-3">
       {methodSteps.map((step) => (
         <li key={step.number} className="border-t border-border pt-6">
-          <span className="font-heading text-5xl font-extrabold text-primary/15" aria-hidden="true">{step.number}</span>
+          <span className="font-heading text-5xl font-extrabold text-primary/60" aria-hidden="true">{step.number}</span>
           <h3 className="mt-5 text-xl uppercase tracking-wide">{step.title}</h3>
           <p className="mt-3 text-muted-foreground">{step.description}</p>
         </li>

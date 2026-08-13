@@ -1,14 +1,6 @@
 import { ChevronDown, Menu } from "lucide-react";
 import { Link } from "wouter";
 import logo from "@/assets/brand/logo-horizontal.png";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 
 const consortiumLinks = [
   ["Imóveis", "/consorcio-de-imoveis/"],
@@ -27,6 +19,10 @@ const navLinkClass =
   "rounded-md px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-surface focus-visible:outline-ring";
 
 export function Navbar() {
+  function closeMobileMenu(event: React.MouseEvent<HTMLAnchorElement>) {
+    event.currentTarget.closest("details")?.removeAttribute("open");
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
       <nav className="container-custom flex h-20 items-center justify-between" aria-label="Navegação principal">
@@ -61,37 +57,25 @@ export function Navbar() {
           </Link>
         </div>
 
-        <Sheet>
-          <SheetTrigger asChild>
-            <button type="button" className="inline-flex size-11 items-center justify-center rounded-md border border-border text-primary lg:hidden" aria-label="Abrir menu">
+        <details className="group relative lg:hidden">
+          <summary className="inline-flex size-11 cursor-pointer list-none items-center justify-center rounded-md border border-border text-primary marker:content-none" aria-label="Abrir menu">
               <Menu className="size-6" aria-hidden="true" />
-            </button>
-          </SheetTrigger>
-          <SheetContent className="w-[min(90vw,24rem)] overflow-y-auto border-border">
-            <SheetHeader>
-              <SheetTitle className="text-left text-primary">Menu</SheetTitle>
-            </SheetHeader>
-            <div className="mt-8 flex flex-col gap-1">
+          </summary>
+          <div className="absolute right-0 top-14 w-[min(88vw,24rem)] rounded-xl border border-border bg-background p-5 shadow-card-strong">
+            <p className="mb-5 font-heading text-lg font-bold text-primary">Menu</p>
+            <div className="flex flex-col gap-1">
               <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Consórcios</p>
               {consortiumLinks.map(([label, href]) => (
-                <SheetClose asChild key={href}>
-                  <Link href={href} className={navLinkClass}>{label}</Link>
-                </SheetClose>
+                <Link key={href} href={href} className={navLinkClass} onClick={closeMobileMenu}>{label}</Link>
               ))}
               <div className="my-3 border-t border-border" />
               {mainLinks.map(([label, href]) => (
-                <SheetClose asChild key={href}>
-                  <Link href={href} className={navLinkClass}>{label}</Link>
-                </SheetClose>
+                <Link key={href} href={href} className={navLinkClass} onClick={closeMobileMenu}>{label}</Link>
               ))}
-              <SheetClose asChild>
-                <Link href="/fale-com-um-especialista/" className="mt-4 rounded-md bg-cta px-4 py-3 text-center font-bold text-primary">
-                  Falar com um especialista
-                </Link>
-              </SheetClose>
+              <Link href="/fale-com-um-especialista/" className="mt-4 rounded-md bg-cta px-4 py-3 text-center font-bold text-primary" onClick={closeMobileMenu}>Falar com um especialista</Link>
             </div>
-          </SheetContent>
-        </Sheet>
+          </div>
+        </details>
       </nav>
     </header>
   );
