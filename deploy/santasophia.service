@@ -1,0 +1,54 @@
+# Unit systemd para a aplicação Santa Sophia.
+#
+# Instalação na VPS:
+#   sudo cp deploy/santasophia.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now santasophia
+#
+# Ajuste User, WorkingDirectory e EnvironmentFile se o caminho de instalação
+# for diferente de /var/www/santasophia.
+
+[Unit]
+Description=Santa Sophia Consorcios — site institucional
+Documentation=https://github.com/olsenrodrigo/santasophia
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=santasophia
+Group=santasophia
+WorkingDirectory=/var/www/santasophia
+
+# O arquivo .env precisa existir antes do primeiro start. Cada linha é
+# CHAVE=valor, sem `export` e sem aspas ao redor do valor.
+EnvironmentFile=/var/www/santasophia/.env
+Environment=NODE_ENV=production
+
+ExecStart=/usr/bin/node dist/index.cjs
+
+Restart=always
+RestartSec=5
+# Impede loop de reinício rápido mascarar uma falha de configuração.
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=santasophia
+
+# --- Endurecimento -----------------------------------------------------------
+# data/ guarda os contatos quando não há DATABASE_URL; é o único caminho que
+# precisa de escrita. ReadWritePaths abre exceção no ProtectSystem=strict.
+ProtectSystem=strict
+ReadWritePaths=/var/www/santasophia/data
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

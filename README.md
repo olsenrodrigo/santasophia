@@ -33,25 +33,19 @@ O servidor escuta em `0.0.0.0` na porta `PORT` (padrão `5000`). Em produção e
 
 ### VPS (Hostinger)
 
-O alvo de produção é uma VPS com Node.js 20+, Nginx como proxy reverso e certificado Let's Encrypt.
+O alvo de produção é uma VPS com Node.js 20+, Nginx como proxy reverso e certificado Let's Encrypt. O runbook completo — primeiro deploy, atualização, verificação e diagnóstico — está em [`deploy/README.md`](deploy/README.md), junto com a unit systemd e o server block do Nginx prontos para copiar.
 
-Como as variáveis `VITE_` são incorporadas ao bundle, **o build precisa rodar depois de o `.env` existir**. Trocar um valor `VITE_` exige novo `npm run build`.
+Atualização, em resumo:
 
 ```bash
-# na VPS, dentro do diretório da aplicação
-git pull
-npm ci
-# criar/editar .env antes do build (ver "Variáveis de ambiente")
-npm run check && npm run build
+cd /var/www/santasophia
+sudo -u santasophia git pull
+sudo -u santasophia npm ci
+sudo -u santasophia npm run check && sudo -u santasophia npm run build
 sudo systemctl restart santasophia
 ```
 
-Pontos de atenção:
-
-- **`TRUST_PROXY`**: defina como `1` quando houver Nginx ou CDN à frente. Sem isso o rate-limit de `/api/contact` enxerga o IP do proxy e todos os visitantes dividem o mesmo balde.
-- **Escrita em `data/`**: sem `DATABASE_URL`, os contatos vão para `data/contact-messages.jsonl`. O usuário do serviço precisa de permissão de escrita nesse diretório, que contém dado pessoal — mantenha-o fora de backups públicos e do controle de versão (já está no `.gitignore`).
-- **Nginx**: encaminhe para `http://127.0.0.1:5000` preservando `X-Forwarded-For` e `X-Forwarded-Proto`.
-- **Processo**: use uma unit systemd (ou PM2) com `Restart=always` e `EnvironmentFile` apontando para o `.env`.
+Como as variáveis `VITE_` são incorporadas ao bundle, **o build precisa rodar depois de o `.env` existir**. Trocar um valor `VITE_` exige novo `npm run build` — reiniciar o serviço não basta.
 
 ## Variáveis de ambiente
 
