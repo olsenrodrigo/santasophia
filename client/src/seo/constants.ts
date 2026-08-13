@@ -8,7 +8,7 @@ export const WHATSAPP_E164 = "+5516991972435";
 export const WHATSAPP_BASE_URL = "https://wa.me/5516991972435";
 export const EMAIL = "contato@santasophiaconsorcios.com.br";
 export const INSTAGRAM = "https://www.instagram.com/santasophiaconsorcios/";
-export const DEFAULT_OG_IMAGE = "/opengraph.jpg";
+export const DEFAULT_OG_IMAGE = "/og/default.jpg";
 
 export function absUrl(path: string): string {
   if (path === "/") return `${SITE_URL}/`;
