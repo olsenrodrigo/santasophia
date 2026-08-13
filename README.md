@@ -42,6 +42,14 @@ O build gera o servidor em `dist/index.cjs` e uma página HTML pré-renderizada 
 
 Variáveis iniciadas por `VITE_` são incorporadas ao build. Portanto, devem estar configuradas antes de executar `npm run build`.
 
+## Auditoria de compliance
+
+A frase aprovada “Consórcio não é dinheiro rápido” é uma negação informativa. A auditoria exclui somente essa formulação e continua apontando ocorrências afirmativas:
+
+```bash
+grep -rniE "dinheiro r[áa]pido" dist/public --include='*.html' | grep -viE "não é dinheiro r[áa]pido"
+```
+
 ## Foto do Magno
 
 O site usa o símbolo da Santa Sophia como fallback gráfico. Quando a foto aprovada estiver disponível:

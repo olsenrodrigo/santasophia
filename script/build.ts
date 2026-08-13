@@ -10,25 +10,13 @@ const ssrDist = path.resolve(projectRoot, "dist/ssr");
 
 // server deps to bundle to reduce openat(2) syscalls
 const allowlist = [
-  "@google/generative-ai",
-  "axios",
-  "cors",
   "compression",
-  "date-fns",
   "drizzle-orm",
   "drizzle-zod",
   "express",
-  "express-rate-limit",
-  "jsonwebtoken",
-  "multer",
-  "nanoid",
   "nodemailer",
-  "openai",
   "pg",
-  "stripe",
-  "uuid",
   "ws",
-  "xlsx",
   "zod",
   "zod-validation-error",
 ];

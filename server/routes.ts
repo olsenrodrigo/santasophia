@@ -5,11 +5,35 @@ import { insertContactMessageSchema } from "@shared/schema";
 import { fromError } from "zod-validation-error";
 import { sendContactEmail } from "./email";
 
+const CONTACT_RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+const CONTACT_RATE_LIMIT_MAX = 10;
+const contactRequests = new Map<string, { count: number; resetAt: number }>();
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  app.post("/api/contact", async (req, res) => {
+  app.post("/api/contact", (req, res, next) => {
+    const now = Date.now();
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    const current = contactRequests.get(ip);
+    const entry = !current || current.resetAt <= now
+      ? { count: 1, resetAt: now + CONTACT_RATE_LIMIT_WINDOW_MS }
+      : { ...current, count: current.count + 1 };
+
+    contactRequests.set(ip, entry);
+    res.set({
+      "RateLimit-Limit": String(CONTACT_RATE_LIMIT_MAX),
+      "RateLimit-Remaining": String(Math.max(0, CONTACT_RATE_LIMIT_MAX - entry.count)),
+      "RateLimit-Reset": String(Math.ceil(entry.resetAt / 1000)),
+    });
+
+    if (entry.count > CONTACT_RATE_LIMIT_MAX) {
+      return res.status(429).json({ message: "Muitas tentativas. Tente novamente mais tarde." });
+    }
+
+    next();
+  }, async (req, res) => {
     const result = insertContactMessageSchema.safeParse(req.body);
     if (!result.success) {
       return res.status(400).json({ message: fromError(result.error).toString() });
