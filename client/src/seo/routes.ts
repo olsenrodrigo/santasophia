@@ -5,7 +5,7 @@ import {
   serviceJsonLd,
   websiteJsonLd,
 } from "./jsonld";
-import { faqByCategory, faqEntries, faqSchemaItems } from "@/content/faq";
+import { faqByCategory, faqEntries, faqSchemaItems, segmentFaqAll } from "@/content/faq";
 import { faqPageJsonLd } from "./jsonld";
 
 export interface RouteMeta {
@@ -76,6 +76,7 @@ export const routes: RouteMeta[] = [
           "Consórcio de imóveis",
           "Planejamento de consórcio para imóveis, conforme as regras da administradora e do contrato.",
         ),
+        faqPageJsonLd(faqSchemaItems(segmentFaqAll("real-estate"))),
       ]),
   },
   {
@@ -96,6 +97,7 @@ export const routes: RouteMeta[] = [
           "Consórcio de veículos",
           "Planejamento de consórcio para carros e motos, conforme as regras da administradora e do contrato.",
         ),
+        faqPageJsonLd(faqSchemaItems(segmentFaqAll("vehicles"))),
       ]),
   },
   {
@@ -116,6 +118,7 @@ export const routes: RouteMeta[] = [
           "Consórcio de caminhões e veículos pesados",
           "Planejamento de consórcio para caminhões e veículos pesados, conforme as regras da administradora e do contrato.",
         ),
+        faqPageJsonLd(faqSchemaItems(segmentFaqAll("trucks"))),
       ]),
   },
   {
@@ -136,6 +139,7 @@ export const routes: RouteMeta[] = [
           "Consórcio para empresas",
           "Planejamento de consórcio para máquinas, equipamentos, imóveis e frota, conforme as regras da administradora e do contrato.",
         ),
+        faqPageJsonLd(faqSchemaItems(segmentFaqAll("business"))),
       ]),
   },
   {

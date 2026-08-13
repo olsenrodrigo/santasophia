@@ -481,3 +481,45 @@ export function faqByIds(...ids: string[]): FaqEntry[] {
 export function faqSchemaItems(entries: FaqEntry[] = faqEntries) {
   return entries.map(({ question, answerHtml }) => ({ question, answer: answerHtml }));
 }
+
+/**
+ * Perguntas exibidas em cada página de segmento — fonte única consumida tanto
+ * pelas páginas quanto pelo JSON-LD FAQPage, para que o schema nunca declare
+ * uma pergunta que não está visível na página (exigência do Google).
+ *
+ * `items` são as perguntas da categoria, exibidas na íntegra como H2 + resposta.
+ * `related` são perguntas de outras categorias, no accordion do rodapé da página.
+ */
+export const segmentFaq = {
+  "real-estate": {
+    items: ["comprar-imovel", "consorcio-imovel-vale-a-pena", "comprar-apartamento", "comprar-terreno", "construcao-reforma"],
+    related: ["como-funciona-contemplacao", "como-funciona-lance", "como-escolher-consorcio"],
+  },
+  vehicles: {
+    items: ["consorcio-carro-vale-a-pena", "consorcio-ou-financiamento-carro"],
+    related: ["carta-de-credito", "como-funciona-lance", "como-escolher-consorcio"],
+  },
+  trucks: {
+    items: ["consorcio-caminhao", "consorcio-veiculos-pesados", "aquisicao-caminhoes"],
+    related: ["como-funciona-contemplacao", "carta-de-credito", "como-escolher-consorcio"],
+  },
+  business: {
+    items: ["consorcio-empresas-vale-a-pena", "consorcio-expansao", "maquinas-e-equipamentos"],
+    related: ["como-funciona-contemplacao", "como-funciona-lance", "como-escolher-consorcio"],
+  },
+} as const;
+
+export type SegmentFaqKey = keyof typeof segmentFaq;
+
+export function segmentFaqItems(key: SegmentFaqKey): FaqEntry[] {
+  return faqByIds(...segmentFaq[key].items);
+}
+
+export function segmentFaqRelated(key: SegmentFaqKey): FaqEntry[] {
+  return faqByIds(...segmentFaq[key].related);
+}
+
+/** Tudo que a página de segmento exibe — base do FAQPage JSON-LD. */
+export function segmentFaqAll(key: SegmentFaqKey): FaqEntry[] {
+  return [...segmentFaqItems(key), ...segmentFaqRelated(key)];
+}
