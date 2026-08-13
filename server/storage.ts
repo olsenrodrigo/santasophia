@@ -1,3 +1,5 @@
+import { appendFile, mkdir } from "node:fs/promises";
+import path from "node:path";
 import { type ContactMessage, type InsertContactMessage, contactMessages } from "@shared/schema";
 import { drizzle } from "drizzle-orm/node-postgres";
 import pg from "pg";
@@ -6,17 +8,46 @@ export interface IStorage {
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
 }
 
-const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+class DatabaseStorage implements IStorage {
+  private readonly db;
 
-const db = drizzle(pool);
+  constructor(databaseUrl: string) {
+    const pool = new pg.Pool({ connectionString: databaseUrl });
+    this.db = drizzle(pool);
+  }
 
-export class DatabaseStorage implements IStorage {
   async createContactMessage(message: InsertContactMessage): Promise<ContactMessage> {
-    const [result] = await db.insert(contactMessages).values(message).returning();
+    const [result] = await this.db.insert(contactMessages).values(message).returning();
     return result;
   }
 }
 
-export const storage = new DatabaseStorage();
+class JsonlStorage implements IStorage {
+  private readonly directory = path.resolve(process.cwd(), "data");
+  private readonly file = path.join(this.directory, "contact-messages.jsonl");
+  private sequence = 0;
+
+  async createContactMessage(message: InsertContactMessage): Promise<ContactMessage> {
+    const createdAt = new Date();
+    const record: ContactMessage = {
+      id: createdAt.getTime() * 1000 + this.sequence++,
+      ...message,
+      createdAt,
+    };
+    await mkdir(this.directory, { recursive: true });
+    await appendFile(this.file, `${JSON.stringify(record)}\n`, "utf8");
+    return record;
+  }
+}
+
+function createStorage(): IStorage {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (databaseUrl) {
+    return new DatabaseStorage(databaseUrl);
+  }
+
+  console.warn("DATABASE_URL ausente; contatos serão gravados em data/contact-messages.jsonl.");
+  return new JsonlStorage();
+}
+
+export const storage = createStorage();

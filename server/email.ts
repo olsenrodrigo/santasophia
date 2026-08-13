@@ -1,15 +1,5 @@
 import nodemailer from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || "smtp.gmail.com",
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
 interface ContactData {
   name: string;
   phone: string;
@@ -17,39 +7,54 @@ interface ContactData {
   message: string;
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 export async function sendContactEmail(data: ContactData) {
-  /* WHITELABEL: Substituir email de destino */
-  const to = process.env.CONTACT_EMAIL || "contato@seusite.com.br";
+  const smtpUser = process.env.SMTP_USER;
+  if (!smtpUser) {
+    console.info("SMTP_USER ausente; contato salvo sem envio de e-mail.");
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || "smtp.gmail.com",
+    port: Number(process.env.SMTP_PORT) || 587,
+    secure: false,
+    auth: {
+      user: smtpUser,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+  const to = process.env.CONTACT_EMAIL || "contato@santasophiaconsorcios.com.br";
+  const safe = {
+    name: escapeHtml(data.name),
+    phone: escapeHtml(data.phone),
+    email: escapeHtml(data.email),
+    message: escapeHtml(data.message),
+  };
 
   await transporter.sendMail({
-    /* WHITELABEL: Substituir nome do remetente */
-    from: `"Site Medico" <${process.env.SMTP_USER}>`,
+    from: `"Santa Sophia Consórcios" <${smtpUser}>`,
     to,
     replyTo: data.email,
-    subject: `Nova consulta – ${data.name}`,
+    subject: `Novo contato pelo site — ${data.name}`,
     html: `
-      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;border:1px solid #e5e7eb;border-radius:12px">
-        <h2 style="color:#2C3E50;margin-bottom:24px">Nova solicitacao de consulta</h2>
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;border:1px solid #E2E6F0;border-radius:12px">
+        <h2 style="color:#0A1D62;margin-bottom:24px">Nova mensagem para a Santa Sophia</h2>
         <table style="width:100%;border-collapse:collapse">
-          <tr>
-            <td style="padding:8px 12px;font-weight:bold;color:#494949;vertical-align:top;width:100px">Nome</td>
-            <td style="padding:8px 12px;color:#212529">${data.name}</td>
-          </tr>
-          <tr style="background:#f9fafb">
-            <td style="padding:8px 12px;font-weight:bold;color:#494949;vertical-align:top">Telefone</td>
-            <td style="padding:8px 12px;color:#212529">${data.phone}</td>
-          </tr>
-          <tr>
-            <td style="padding:8px 12px;font-weight:bold;color:#494949;vertical-align:top">E-mail</td>
-            <td style="padding:8px 12px;color:#212529"><a href="mailto:${data.email}">${data.email}</a></td>
-          </tr>
-          <tr style="background:#f9fafb">
-            <td style="padding:8px 12px;font-weight:bold;color:#494949;vertical-align:top">Mensagem</td>
-            <td style="padding:8px 12px;color:#212529;white-space:pre-line">${data.message}</td>
-          </tr>
+          <tr><td style="padding:8px 12px;font-weight:bold;vertical-align:top;width:100px">Nome</td><td style="padding:8px 12px">${safe.name}</td></tr>
+          <tr style="background:#F5F7FC"><td style="padding:8px 12px;font-weight:bold;vertical-align:top">Telefone</td><td style="padding:8px 12px">${safe.phone}</td></tr>
+          <tr><td style="padding:8px 12px;font-weight:bold;vertical-align:top">E-mail</td><td style="padding:8px 12px"><a href="mailto:${safe.email}">${safe.email}</a></td></tr>
+          <tr style="background:#F5F7FC"><td style="padding:8px 12px;font-weight:bold;vertical-align:top">Mensagem</td><td style="padding:8px 12px;white-space:pre-line">${safe.message}</td></tr>
         </table>
-        <hr style="margin:24px 0;border:none;border-top:1px solid #e5e7eb">
-        <p style="font-size:12px;color:#9ca3af">Enviado pelo formulario do site</p>
+        <p style="margin-top:24px;font-size:12px;color:#51607F">Enviado pelo formulário do site Santa Sophia Consórcios.</p>
       </div>
     `,
   });
