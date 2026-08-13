@@ -1,9 +1,14 @@
 import { build as esbuild } from "esbuild";
 import { build as viteBuild } from "vite";
-import { rm, readFile } from "fs/promises";
+import { readFile, rm } from "node:fs/promises";
+import path from "node:path";
+import { prerenderSite } from "./prerender";
+
+const projectRoot = process.cwd();
+const publicDist = path.resolve(projectRoot, "dist/public");
+const ssrDist = path.resolve(projectRoot, "dist/ssr");
 
 // server deps to bundle to reduce openat(2) syscalls
-// which helps cold start times
 const allowlist = [
   "@google/generative-ai",
   "axios",
@@ -33,10 +38,25 @@ const allowlist = [
 ];
 
 async function buildAll() {
-  await rm("dist", { recursive: true, force: true });
+  await rm(path.resolve(projectRoot, "dist"), { recursive: true, force: true });
 
   console.log("building client...");
   await viteBuild();
+
+  console.log("building SSR entry...");
+  await viteBuild({
+    build: {
+      ssr: "src/entry-server.tsx",
+      outDir: ssrDist,
+      emptyOutDir: true,
+      rollupOptions: {
+        output: { entryFileNames: "entry-server.js" },
+      },
+    },
+  });
+
+  console.log("prerendering routes...");
+  await prerenderSite(publicDist, path.join(ssrDist, "entry-server.js"));
 
   console.log("building server...");
   const pkg = JSON.parse(await readFile("package.json", "utf-8"));
@@ -61,7 +81,7 @@ async function buildAll() {
   });
 }
 
-buildAll().catch((err) => {
-  console.error(err);
+buildAll().catch((error) => {
+  console.error(error);
   process.exit(1);
 });
