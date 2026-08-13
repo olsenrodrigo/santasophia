@@ -10,7 +10,9 @@
     "start": "NODE_ENV=production node dist/index.cjs",
     "preview": "npm run build && npm run start",
     "check": "tsc",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
@@ -45,9 +47,11 @@
     "@vitejs/plugin-react": "^5.0.4",
     "drizzle-kit": "^0.31.4",
     "esbuild": "^0.25.0",
+    "fast-check": "^4.9.0",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.20.5",
     "typescript": "5.6.3",
-    "vite": "^7.1.9"
+    "vite": "^7.1.9",
+    "vitest": "^4.1.10"
   }
 }

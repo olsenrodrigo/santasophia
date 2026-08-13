@@ -139,7 +139,7 @@ export default function Home() {
 
       <Reveal><section className="section-padding bg-primary-deep text-primary-foreground">
         <div className="container-custom grid items-center gap-12 lg:grid-cols-[minmax(18rem,0.75fr)_1.25fr] lg:gap-20">
-          <MagnoPortrait className="mx-auto w-full max-w-md lg:mx-0" />
+          <MagnoPortrait className="mx-auto lg:mx-0" />
           <div>
             <p className="eyebrow-text text-highlight">E quem é Magno Stiti de Paula?</p>
             <h2 className="mt-4 max-w-4xl text-[clamp(1.6rem,3vw,2.4rem)] text-primary-foreground">Por trás de uma grande decisão financeira, você merece falar com alguém que entende do jogo.</h2>

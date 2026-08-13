@@ -13,7 +13,7 @@ export default function MagnoPage() {
       <PageHero path="/magno-stiti-de-paula/" h1="Magno Stiti de Paula, especialista em consórcios" lede="Por trás de uma grande decisão financeira, você merece falar com alguém que entende do jogo." />
       <section className="section-padding bg-background">
         <div className="container-custom grid items-center gap-12 lg:grid-cols-[minmax(18rem,0.75fr)_1.25fr] lg:gap-20">
-          <MagnoPortrait priority className="mx-auto w-full max-w-md lg:mx-0" />
+          <MagnoPortrait priority className="mx-auto lg:mx-0" />
           <div>
             <p className="eyebrow-text text-muted-foreground">Especialista em Consórcios</p>
             <h2 className="mt-4 text-[clamp(1.6rem,3vw,2.4rem)]">Atendimento que começa pelo objetivo do cliente.</h2>

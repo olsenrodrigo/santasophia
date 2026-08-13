@@ -6,7 +6,7 @@ export function MagnoCard({ showProfileLink = true }: { showProfileLink?: boolea
   return (
     <article className="grid overflow-hidden rounded-xl bg-primary-deep text-primary-foreground md:grid-cols-[minmax(16rem,0.8fr)_1.2fr]">
       <div className="flex items-center justify-center bg-primary-soft p-6 md:p-8">
-        <MagnoPortrait className="w-full max-w-sm" />
+        <MagnoPortrait />
       </div>
       <div className="flex flex-col justify-center p-8 md:p-12">
         <p className="eyebrow-text text-highlight">Especialista em Consórcios</p>
