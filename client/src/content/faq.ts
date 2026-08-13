@@ -8,6 +8,52 @@ export interface FaqEntry {
   cta?: string;
 }
 
+export type FaqAnswerBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "unordered-list"; items: string[] }
+  | { type: "ordered-list"; items: Array<{ title: string; detail?: string }> };
+
+export function parseFaqAnswer(answer: string): FaqAnswerBlock[] {
+  const paragraphs = answer.trim().split(/\n{2,}/);
+  const blocks: FaqAnswerBlock[] = [];
+
+  for (let index = 0; index < paragraphs.length; index += 1) {
+    const lines = paragraphs[index].split("\n").map((line) => line.trim()).filter(Boolean);
+    const orderedMatch = lines[0]?.match(/^\d+\.\s+(.+)$/);
+
+    if (orderedMatch) {
+      const items: Array<{ title: string; detail?: string }> = [];
+      while (index < paragraphs.length) {
+        const itemLines = paragraphs[index].split("\n").map((line) => line.trim()).filter(Boolean);
+        const match = itemLines[0]?.match(/^\d+\.\s+(.+)$/);
+        if (!match) break;
+        items.push({
+          title: match[1],
+          detail: itemLines.slice(1).join(" ") || undefined,
+        });
+        index += 1;
+      }
+      index -= 1;
+      blocks.push({ type: "ordered-list", items });
+      continue;
+    }
+
+    const isSemicolonList =
+      lines.length >= 3 &&
+      lines.slice(0, -1).every((line) => line.endsWith(";")) &&
+      /[.;]$/.test(lines.at(-1) ?? "");
+
+    if (isSemicolonList) {
+      blocks.push({ type: "unordered-list", items: lines });
+      continue;
+    }
+
+    blocks.push({ type: "paragraph", text: lines.join("\n") });
+  }
+
+  return blocks;
+}
+
 export const faqCategoryLabels: Record<FaqCategory, string> = {
   consorcio: "Consórcio",
   imoveis: "Imóveis",
