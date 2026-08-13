@@ -69,9 +69,13 @@ export async function prerenderSite(distRoot: string, serverEntryPath: string) {
   const { render } = (await import(pathToFileURL(serverEntryPath).href)) as ServerEntry;
 
   for (const route of routes) {
+    // Replacer function: como string, `$&`, `$'` e "$`" seriam interpretados
+    // como referências e corromperiam o HTML se a copy contivesse essas sequências.
+    const head = buildHead(route);
+    const body = render(route.path);
     const page = template
-      .replace("<!--app-head-->", buildHead(route))
-      .replace("<!--app-html-->", render(route.path));
+      .replace("<!--app-head-->", () => head)
+      .replace("<!--app-html-->", () => body);
     const outputDirectory =
       route.path === "/" ? distRoot : path.join(distRoot, route.path.slice(1));
     await mkdir(outputDirectory, { recursive: true });

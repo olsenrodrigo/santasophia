@@ -14,7 +14,9 @@ Domínio de produção: `https://santasophiaconsorcios.com.br`
    - WhatsApp (16) 99197-2435
    - contato@santasophiaconsorcios.com.br
    - Instagram: https://www.instagram.com/santasophiaconsorcios/
-4. **Foto do Magno: NÃO DISPONÍVEL.** A extração do Instagram falhou (login wall, sem API key). Use o fallback do risco §7.11: tratamento gráfico com o símbolo "S" da marca / monograma. **Nunca usar foto de banco de imagens de "consultor genérico".** Deixe o ponto de troca explicitamente comentado no código (`MagnoCard.tsx`) para que baste soltar o arquivo em `client/src/assets/brand/magno.jpg` depois.
+4. **Foto do Magno: DISPONÍVEL** (atualizado após validação do cliente). O arquivo aprovado foi tratado e está em uso via `MagnoPortrait` na home e em `/magno-stiti-de-paula/`.
+   **Limitação de resolução:** a origem tem 375×375 (tamanho de foto de perfil), então o recorte 4:5 rende 300×375. O `MagnoPortrait` limita o retrato a 300px de largura de propósito — acima disso a imagem amolece em tela retina. Se um original em resolução maior for fornecido, basta substituir `client/src/assets/brand/magno.{jpg,webp}` e relaxar o `max-w`.
+   O `MagnoCard` (usado em `/quem-somos/`) segue com o símbolo "S".
 5. **Assets da marca JÁ FORAM GERADOS — use-os, não recrie:**
    - `client/src/assets/brand/logo-horizontal.png` (992×180, alpha limpo, navy+amarelo+laranja) — navbar em fundo claro
    - `client/src/assets/brand/logo-horizontal-white.png` — navbar/footer em fundo navy
@@ -299,7 +301,7 @@ Quem somos, Magno, Simulação, Fale com especialista, Privacidade, 404.
 
 ### Fase 6 — SEO/GEO final + performance + limpeza
 GA4 + eventos, meta GSC, og-images, llms.txt final, prune de dependências, auditoria de termos proibidos, auditoria CWV.
-**Aceite:** Lighthouse mobile em TODAS as rotas: Perf ≥ 90, SEO ≥ 95, A11y ≥ 95, Best Practices ≥ 95; JS inicial ≤ 250 KB gzip; `grep -ri "contempla[çc][aã]o garantida\|dinheiro r[áa]pido" dist/public` vazio; sitemap acessível; `npm run check` limpo.
+**Aceite:** Lighthouse mobile em TODAS as rotas: Perf ≥ 90, SEO ≥ 95, A11y ≥ 95, Best Practices ≥ 95; JS inicial ≤ 250 KB gzip; `grep -rniE "dinheiro r[áa]pido" dist/public --include='*.html' | grep -viE "não é dinheiro r[áa]pido"` vazio (a frase existe legitimamente em negação na copy aprovada — o critério original nunca passaria); sitemap acessível; `npm run check` limpo.
 
 ---
 
@@ -326,3 +328,23 @@ GA4 + eventos, meta GSC, og-images, llms.txt final, prune de dependências, audi
 - `client/src/entry-server.tsx` (novo) — `render(url)` com wouter `ssrPath`; par com `client/src/main.tsx` em `hydrateRoot`
 - `server/static.ts` — páginas estáticas por diretório + 404 real
 - `client/src/index.css` — design system inteiro via `@theme inline`
+
+
+---
+
+## 8. Correções pós-QA (registro)
+
+O QA (invariantes Sintetiza) reprovou a primeira entrega por **INV-5 (LGPD)** e apontou outros defeitos. Todos corrigidos e verificados:
+
+| Severidade | Defeito | Correção |
+|---|---|---|
+| ALTO | Dado pessoal no log: o body-parser anexa o payload cru em `err.body` e o handler logava o erro inteiro; a mensagem do parser de JSON também ecoava trecho do corpo na resposta 400 | `server/index.ts`: handler loga só método/rota/status/tipo; resposta genérica para erro de parse; corpo da resposta só entra no log fora de produção; `rawBody` deixou de ser retido |
+| MÉDIO | Formulário aceitava nome só com espaços, telefone sem dígitos e mensagem de 90 mil caracteres | `shared/schema.ts`: `trim()` antes de `min()`, telefone exigindo ≥10 dígitos (aceitando máscara), `max()` nos 4 campos |
+| MÉDIO | `text-primary-foreground/45` reprovava no axe | elevado para `/70` |
+| BAIXO | Rate-limit sem limpeza e sem `trust proxy` (atrás de CDN todos dividiriam o mesmo balde) | `pruneRateLimit()` + `TRUST_PROXY` por env |
+| BAIXO | IDs do JsonlStorage colidiam acima de 1000 mensagens | contador reinicia a cada milissegundo |
+| BAIXO | `template.replace` interpretava `$&`, `$'`, `` $` `` | replacer function no `script/prerender.ts` |
+| — | 16 vulnerabilidades (9 high) | `npm audit` em zero; `nodemailer` 9.x, `drizzle-orm` 0.45.x, `ws` removido |
+| — | Borda pública só com rate-limit | honeypot no formulário |
+
+Suíte de testes (vitest + fast-check) versionada em `tests/`: 35 testes, incluindo as propriedades INV-2 (300 runs) e INV-5.

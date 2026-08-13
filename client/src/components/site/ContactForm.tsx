@@ -25,6 +25,7 @@ export function ContactForm() {
           phone: String(fields.get("phone") ?? ""),
           email: String(fields.get("email") ?? ""),
           message: `Objetivo: ${objective}\n\n${String(fields.get("message") ?? "")}`,
+          website: String(fields.get("website") ?? ""),
         }),
       });
       if (!response.ok) throw new Error(`Falha no envio: ${response.status}`);
@@ -41,6 +42,14 @@ export function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-5 rounded-xl border border-border bg-background p-6 shadow-card md:p-8">
+      {/*
+        Honeypot: invisível e fora da ordem de tabulação para quem usa o site;
+        bots que preenchem tudo caem nele e o servidor descarta o envio.
+      */}
+      <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="contact-website">Não preencha este campo</label>
+        <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
       <div>
         <Label htmlFor="contact-name">Nome</Label>
         <Input id="contact-name" name="name" autoComplete="name" minLength={2} required className="mt-2" />

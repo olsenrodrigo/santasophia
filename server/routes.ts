@@ -1,5 +1,5 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
+import type { Server } from "http";
 import { storage } from "./storage";
 import { insertContactMessageSchema } from "@shared/schema";
 import { fromError } from "zod-validation-error";
@@ -9,12 +9,20 @@ const CONTACT_RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const CONTACT_RATE_LIMIT_MAX = 10;
 const contactRequests = new Map<string, { count: number; resetAt: number }>();
 
+/** Sem isso o Map cresce indefinidamente conforme chegam IPs novos. */
+function pruneRateLimit(now: number) {
+  for (const [ip, entry] of Array.from(contactRequests.entries())) {
+    if (entry.resetAt <= now) contactRequests.delete(ip);
+  }
+}
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
   app.post("/api/contact", (req, res, next) => {
     const now = Date.now();
+    pruneRateLimit(now);
     const ip = req.ip || req.socket.remoteAddress || "unknown";
     const current = contactRequests.get(ip);
     const entry = !current || current.resetAt <= now
@@ -34,6 +42,11 @@ export async function registerRoutes(
 
     next();
   }, async (req, res) => {
+    // Honeypot: bot que preenche o campo escondido recebe 201 e nada e gravado.
+    if (typeof req.body?.website === "string" && req.body.website.trim() !== "") {
+      return res.status(201).json({ success: true });
+    }
+
     const result = insertContactMessageSchema.safeParse(req.body);
     if (!result.success) {
       return res.status(400).json({ message: fromError(result.error).toString() });

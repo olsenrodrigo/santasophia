@@ -55,7 +55,7 @@ describe("POST /api/contact", () => {
   it("rejeita content-type errado com 400 (body não parseado não vira contato)", async () => {
     const antes = await server.jsonlCount();
     const res = await post(
-      JSON.stringify({ name: "QA Teste", phone: "12345678", email: "a@b.co", message: "oi" }),
+      JSON.stringify({ name: "QA Teste", phone: "16999990000", email: "a@b.co", message: "oi" }),
       "text/plain",
     );
     expect(res.status).toBe(400);
@@ -64,11 +64,11 @@ describe("POST /api/contact", () => {
 
   it("rejeita payload gigante (>100kb) com 413 sem derrubar o servidor", async () => {
     const res = await post(JSON.stringify({
-      name: "QA", phone: "12345678", email: "a@b.co", message: "x".repeat(200_000),
+      name: "QA Teste", phone: "16999990000", email: "a@b.co", message: "x".repeat(200_000),
     }));
     expect(res.status).toBe(413);
     const depois = await post(JSON.stringify({
-      name: "Contato Válido", phone: "12345678", email: "a@b.co", message: "ainda vivo",
+      name: "Contato Válido", phone: "16999990000", email: "a@b.co", message: "ainda vivo",
     }));
     expect(depois.status).toBe(201);
   });

@@ -37,7 +37,7 @@ export default function MagnoPage() {
               ["Menos “fechar uma venda”.", "Mais construir uma decisão."],
             ].map(([less, more]) => (
               <p key={less} className="flex min-h-36 flex-col justify-center rounded-xl border border-primary-foreground/15 bg-primary-foreground/5 p-6">
-                <span className="text-primary-foreground/45">{less}</span>
+                <span className="text-primary-foreground/70">{less}</span>
                 <span className="mt-2 text-xl font-bold text-[#FFC82B]">{more}</span>
               </p>
             ))}

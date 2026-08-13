@@ -157,7 +157,7 @@ export default function Home() {
                 ["Menos “fechar uma venda”.", "Mais construir uma decisão."],
               ].map(([less, more]) => (
                 <p key={less} className="flex min-h-32 flex-col justify-center rounded-xl border border-primary-foreground/15 bg-primary-foreground/5 p-5">
-                  <span className="text-primary-foreground/45">{less}</span>
+                  <span className="text-primary-foreground/70">{less}</span>
                   <span className="mt-2 text-lg font-bold text-[#FFC82B]">{more}</span>
                 </p>
               ))}
