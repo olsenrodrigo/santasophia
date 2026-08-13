@@ -2,7 +2,8 @@ import { ChevronDown } from "lucide-react";
 
 export interface FaqItem {
   question: string;
-  answer: string;
+  answer?: string;
+  answerHtml?: string;
 }
 
 export function FaqAccordion({ items }: { items: FaqItem[] }) {
@@ -14,7 +15,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
             {item.question}
             <ChevronDown className="size-5 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true" />
           </summary>
-          <div className="max-w-4xl whitespace-pre-line pb-6 pr-10 text-muted-foreground">{item.answer}</div>
+          <div className="max-w-4xl whitespace-pre-line pb-6 pr-10 text-muted-foreground">{item.answerHtml ?? item.answer}</div>
         </details>
       ))}
     </div>

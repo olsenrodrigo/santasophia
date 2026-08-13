@@ -5,6 +5,8 @@ import {
   serviceJsonLd,
   websiteJsonLd,
 } from "./jsonld";
+import { faqByCategory, faqByIds, faqEntries, faqSchemaItems } from "@/content/faq";
+import { faqPageJsonLd } from "./jsonld";
 
 export interface RouteMeta {
   path: string;
@@ -52,6 +54,7 @@ export const routes: RouteMeta[] = [
           "Consórcio de imóveis",
           "Planejamento de consórcio para imóveis, conforme as regras da administradora e do contrato.",
         ),
+        faqPageJsonLd(faqSchemaItems(faqByCategory("imoveis"))),
       ]),
   },
   {
@@ -69,6 +72,7 @@ export const routes: RouteMeta[] = [
           "Consórcio de veículos",
           "Planejamento de consórcio para carros e motos, conforme as regras da administradora e do contrato.",
         ),
+        faqPageJsonLd(faqSchemaItems(faqByIds("consorcio-carro-vale-a-pena", "consorcio-ou-financiamento-carro"))),
       ]),
   },
   {
@@ -86,6 +90,7 @@ export const routes: RouteMeta[] = [
           "Consórcio de caminhões e veículos pesados",
           "Planejamento de consórcio para caminhões e veículos pesados, conforme as regras da administradora e do contrato.",
         ),
+        faqPageJsonLd(faqSchemaItems(faqByIds("consorcio-caminhao", "consorcio-veiculos-pesados", "aquisicao-caminhoes"))),
       ]),
   },
   {
@@ -103,6 +108,7 @@ export const routes: RouteMeta[] = [
           "Consórcio para empresas",
           "Planejamento de consórcio para máquinas, equipamentos, imóveis e frota, conforme as regras da administradora e do contrato.",
         ),
+        faqPageJsonLd(faqSchemaItems(faqByIds("consorcio-empresas-vale-a-pena", "consorcio-expansao", "maquinas-e-equipamentos"))),
       ]),
   },
   {
@@ -113,7 +119,7 @@ export const routes: RouteMeta[] = [
     h1: "O que é consórcio e como funciona?",
     changefreq: "monthly",
     priority: 0.9,
-    jsonLd: () => internalSchemas("/o-que-e-consorcio/", "O que é consórcio"),
+    jsonLd: () => internalSchemas("/o-que-e-consorcio/", "O que é consórcio", [faqPageJsonLd(faqSchemaItems(faqByCategory("consorcio")))]),
   },
   {
     path: "/quem-somos/",
@@ -148,7 +154,7 @@ export const routes: RouteMeta[] = [
     changefreq: "monthly",
     priority: 0.9,
     jsonLd: () =>
-      internalSchemas("/perguntas-frequentes/", "Perguntas frequentes"),
+      internalSchemas("/perguntas-frequentes/", "Perguntas frequentes", [faqPageJsonLd(faqSchemaItems(faqEntries))]),
   },
   {
     path: "/simulacao-de-consorcio/",
