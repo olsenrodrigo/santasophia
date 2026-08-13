@@ -5,7 +5,7 @@ import { AnswerBlock } from "@/components/site/AnswerBlock";
 import { CtaBand } from "@/components/site/CtaBand";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { Layout } from "@/components/site/Layout";
-import { MagnoCard } from "@/components/site/MagnoCard";
+import { MagnoPortrait } from "@/components/site/MagnoPortrait";
 import { MethodSteps } from "@/components/site/MethodSteps";
 import { Reveal } from "@/components/site/Reveal";
 import { SegmentCards } from "@/components/site/SegmentCards";
@@ -137,16 +137,38 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-padding bg-background">
-        <div className="container-custom">
-          <p className="eyebrow-text mb-4 text-muted-foreground">E quem é Magno Stiti de Paula?</p>
-          <h2 className="mb-10 max-w-4xl text-[clamp(1.6rem,3vw,2.4rem)]">Por trás de uma grande decisão financeira, você merece falar com alguém que entende do jogo.</h2>
-          <MagnoCard />
-          <div className="mx-auto mt-10 grid max-w-5xl gap-3 text-center sm:grid-cols-2 lg:grid-cols-3">
-            {["Porque vender uma carta de crédito é fácil.", "Difícil é entender o que o cliente realmente precisa.", "É isso que diferencia o atendimento da Santa Sophia.", "Menos pressão. Mais diagnóstico.", "Menos promessa. Mais estratégia.", "Menos “fechar uma venda”. Mais construir uma decisão."].map((text) => <p key={text} className="rounded-lg bg-surface p-4 font-medium">{text}</p>)}
+      <Reveal><section className="section-padding bg-primary-deep text-primary-foreground">
+        <div className="container-custom grid items-center gap-12 lg:grid-cols-[minmax(18rem,0.75fr)_1.25fr] lg:gap-20">
+          <MagnoPortrait className="mx-auto w-full max-w-md lg:mx-0" />
+          <div>
+            <p className="eyebrow-text text-highlight">E quem é Magno Stiti de Paula?</p>
+            <h2 className="mt-4 max-w-4xl text-[clamp(1.6rem,3vw,2.4rem)] text-primary-foreground">Por trás de uma grande decisão financeira, você merece falar com alguém que entende do jogo.</h2>
+            <div className="mt-7 space-y-4 text-lg text-primary-foreground/80">
+              <p>Magno Stiti de Paula atua no mercado de consórcios e construiu uma trajetória de destaque comercial no segmento.</p>
+              <p>Com experiência na comercialização de consórcios do Itaú, Magno tornou-se conhecido pela capacidade de entender o objetivo de cada cliente e transformar uma conversa sobre parcela em uma conversa sobre estratégia.</p>
+              <p>Porque vender uma carta de crédito é fácil.</p>
+              <p><em>Difícil é entender o que o cliente realmente precisa.</em></p>
+              <p>É isso que diferencia o atendimento da Santa Sophia.</p>
+            </div>
+            <div className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Princípios do atendimento de Magno">
+              {[
+                ["Menos pressão.", "Mais diagnóstico."],
+                ["Menos promessa.", "Mais estratégia."],
+                ["Menos “fechar uma venda”.", "Mais construir uma decisão."],
+              ].map(([less, more]) => (
+                <p key={less} className="flex min-h-32 flex-col justify-center rounded-xl border border-primary-foreground/15 bg-primary-foreground/5 p-5">
+                  <span className="text-primary-foreground/45">{less}</span>
+                  <span className="mt-2 text-lg font-bold text-[#FFC82B]">{more}</span>
+                </p>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <WhatsAppCta message={whatsappMessage} label="Falar com o Magno" variant="home-magno-highlight" />
+              <Link href="/magno-stiti-de-paula/" className="inline-flex min-h-12 items-center justify-center rounded-md border border-primary-foreground/40 px-6 py-3 font-semibold text-primary-foreground transition-colors hover:border-highlight hover:text-highlight">Conheça a trajetória</Link>
+            </div>
           </div>
         </div>
-      </section>
+      </section></Reveal>
 
       <section className="section-padding bg-surface">
         <div className="container-custom">

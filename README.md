@@ -55,8 +55,9 @@ grep -rniE "dinheiro r[áa]pido" dist/public --include='*.html' | grep -viE "nã
 O site usa o símbolo da Santa Sophia como fallback gráfico. Quando a foto aprovada estiver disponível:
 
 1. salve-a como `client/src/assets/brand/magno.jpg`;
-2. abra `client/src/components/site/MagnoCard.tsx`;
-3. siga o comentário `PONTO DE TROCA`, importando a foto e substituindo apenas a imagem do símbolo;
-4. mantenha dimensões explícitas, texto alternativo descritivo e `loading="lazy"`.
+2. abra `client/src/components/site/MagnoPortrait.tsx`;
+3. siga o comentário `PONTO DE TROCA DA FOTO`: descomente o `<img>` preparado e apague o bloco de fallback logo abaixo.
+
+O componente já define dimensões explícitas, texto alternativo descritivo, `loading="lazy"` na home e `fetchpriority="high"` na página do Magno.
 
 Não use foto de banco de imagens ou imagem não aprovada.

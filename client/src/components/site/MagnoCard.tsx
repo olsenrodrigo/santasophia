@@ -1,14 +1,12 @@
 import { Link } from "wouter";
-import symbol from "@/assets/brand/symbol.png";
+import { MagnoPortrait } from "./MagnoPortrait";
 import { WhatsAppCta } from "./WhatsAppCta";
 
 export function MagnoCard({ showProfileLink = true }: { showProfileLink?: boolean }) {
   return (
     <article className="grid overflow-hidden rounded-xl bg-primary-deep text-primary-foreground md:grid-cols-[minmax(16rem,0.8fr)_1.2fr]">
-      <div className="relative flex min-h-72 items-center justify-center overflow-hidden bg-primary-soft p-10">
-        {/* PONTO DE TROCA: quando client/src/assets/brand/magno.jpg estiver disponível,
-            importe o arquivo e substitua somente esta imagem do símbolo pela foto real. */}
-        <img src={symbol} alt="Símbolo da Santa Sophia" width="564" height="512" className="w-48" loading="lazy" />
+      <div className="flex items-center justify-center bg-primary-soft p-6 md:p-8">
+        <MagnoPortrait className="w-full max-w-sm" />
       </div>
       <div className="flex flex-col justify-center p-8 md:p-12">
         <p className="eyebrow-text text-highlight">Especialista em Consórcios</p>
