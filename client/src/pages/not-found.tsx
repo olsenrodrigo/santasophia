@@ -1,21 +1,13 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "wouter";
+import { Layout } from "@/components/site/Layout";
+import { PageHero } from "@/components/site/PageHero";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
-          </div>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+    <Layout>
+      <PageHero path="/404/" h1="Página não encontrada" lede="O endereço informado não corresponde a uma página disponível." />
+      <section className="section-padding bg-background"><div className="container-custom text-center"><h2 className="text-2xl">Vamos encontrar o caminho certo.</h2><p className="mx-auto mt-5 max-w-xl text-muted-foreground">Volte ao início para conhecer as possibilidades de consórcio ou fale com a equipe Santa Sophia.</p><Link href="/" className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-bold text-primary-foreground hover:bg-primary-soft"><ArrowLeft className="size-5" aria-hidden="true" />Voltar ao início</Link></div></section>
+    </Layout>
   );
 }
