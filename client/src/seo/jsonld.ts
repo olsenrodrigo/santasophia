@@ -21,7 +21,7 @@ export function organizationJsonLd() {
     "@type": ["Organization", "FinancialService"],
     "@id": `${SITE_URL}/#organization`,
     name: "Santa Sophia",
-    alternateName: SITE_NAME,
+    alternateName: [SITE_NAME, "Santa Sophia Crédito", "Santa Sophia Consórcio Brasil"],
     url: `${SITE_URL}/`,
     logo: absUrl("/favicon-512.png"),
     telephone: PHONE_E164,

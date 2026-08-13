@@ -25,7 +25,7 @@ export function Breadcrumbs({ path }: { path?: string }) {
         </BreadcrumbItem>
         <BreadcrumbSeparator className="text-primary-foreground/50" />
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-primary-foreground">{route.h1}</BreadcrumbPage>
+          <BreadcrumbPage className="text-primary-foreground">{route.breadcrumbLabel}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
