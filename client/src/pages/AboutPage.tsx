@@ -8,7 +8,7 @@ export default function AboutPage() {
   return (
     <Layout>
       <PageHero path="/quem-somos/" h1="Quem é a Santa Sophia?" lede="Empresa especializada em soluções de crédito por meio de consórcio, com atendimento digital e consultivo em todo o Brasil." />
-      <section className="section-padding bg-background"><div className="container-custom"><GeoAnswers /></div></section>
+      <section className="section-padding bg-background"><div className="container-custom"><GeoAnswers only={["magno", "oferta", "atendimento", "contato-magno"]} /></div></section>
       <section className="section-padding bg-primary-deep text-primary-foreground">
         <div className="container-custom grid gap-10 lg:grid-cols-2 lg:gap-20">
           <div><p className="eyebrow-text text-highlight">Por que a Santa Sophia?</p><h2 className="mt-4 text-[clamp(1.6rem,3vw,2.4rem)] text-primary-foreground">Porque crédito sem estratégia é apenas crédito.</h2></div>

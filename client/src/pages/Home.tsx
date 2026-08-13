@@ -7,6 +7,7 @@ import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { Layout } from "@/components/site/Layout";
 import { MagnoCard } from "@/components/site/MagnoCard";
 import { MethodSteps } from "@/components/site/MethodSteps";
+import { Reveal } from "@/components/site/Reveal";
 import { SegmentCards } from "@/components/site/SegmentCards";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 
@@ -105,7 +106,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-padding bg-background">
+      <Reveal><section className="section-padding bg-background">
         <div className="container-custom">
           <p className="eyebrow-text text-muted-foreground">Nosso método</p>
           <h2 className="mt-4 text-[clamp(1.6rem,3vw,2.4rem)]">Não vendemos uma parcela.</h2>
@@ -120,7 +121,7 @@ export default function Home() {
             <p>Complicado é tomar uma decisão financeira importante sem entender o que está fazendo.</p>
           </div>
         </div>
-      </section>
+      </section></Reveal>
 
       <section className="section-padding bg-primary-deep text-primary-foreground">
         <div className="container-custom max-w-5xl">
@@ -181,13 +182,13 @@ export default function Home() {
           <h2 className="max-w-4xl text-[clamp(1.6rem,3vw,2.4rem)]">Três verdades que pouca gente te conta sobre consórcio</h2>
           <div className="mt-12 grid gap-8 lg:grid-cols-3">
             <article className="border-t-4 border-primary bg-background p-7"><h3 className="text-xl">1. A menor parcela nem sempre é a melhor estratégia.</h3><p className="mt-5 text-muted-foreground">Uma parcela pode parecer ótima no papel e não fazer sentido para o seu objetivo.</p><p className="mt-3">O que importa é o conjunto:</p><p className="mt-2 font-semibold"><em>crédito + prazo + planejamento + objetivo.</em></p></article>
-            <article className="border-t-4 border-primary bg-background p-7"><h3 className="text-xl">2. Consórcio não é dinheiro <span>rápido.</span></h3><p className="mt-5 font-semibold">É planejamento.</p><p className="mt-3 text-muted-foreground">Se você precisa de crédito imediatamente, existem outras soluções financeiras que podem fazer mais sentido.</p><p className="mt-3 text-muted-foreground">Agora, se você consegue planejar sua aquisição, o consórcio pode se tornar uma ferramenta poderosa dentro da sua estratégia.</p></article>
+            <article className="border-t-4 border-primary bg-background p-7"><h3 className="text-xl">2. Consórcio não é dinheiro rápido.</h3><p className="mt-5 font-semibold">É planejamento.</p><p className="mt-3 text-muted-foreground">Se você precisa de crédito imediatamente, existem outras soluções financeiras que podem fazer mais sentido.</p><p className="mt-3 text-muted-foreground">Agora, se você consegue planejar sua aquisição, o consórcio pode se tornar uma ferramenta poderosa dentro da sua estratégia.</p></article>
             <article className="border-t-4 border-primary bg-background p-7"><h3 className="text-xl">3. A melhor decisão não começa na simulação.</h3><p className="mt-5 font-semibold">Começa na conversa.</p><p className="mt-3 text-muted-foreground">Antes de colocar números na tela, precisamos entender o que você pretende fazer com eles.</p><p className="mt-3">Porque <em>o crédito é o meio.</em></p><p className="mt-2">O seu objetivo é o que importa.</p></article>
           </div>
         </div>
       </section>
 
-      <CtaBand title="Você não precisa decidir agora." text="Mas pode descobrir agora o que é possível. Converse com o Magno. Conte o que você pretende comprar, qual é o seu objetivo e em quanto tempo gostaria de realizar. A equipe da Santa Sophia vai analisar seu cenário e apresentar as possibilidades que façam sentido para você. Sem promessa de contemplação. Sem fórmula mágica. Sem pressão. Só uma conversa séria sobre o próximo passo." whatsappMessage={whatsappMessage} />
+      <CtaBand title="Você não precisa decidir agora." text="Mas pode descobrir agora o que é possível. Converse com o Magno. Conte o que você pretende comprar, qual é o seu objetivo e em quanto tempo gostaria de realizar. A equipe da Santa Sophia vai analisar seu cenário e apresentar as possibilidades que façam sentido para você. Sem promessa de contemplação. Sem fórmula mágica. Sem pressão. Só uma conversa séria sobre o próximo passo." whatsappMessage={whatsappMessage} label="QUERO FALAR COM O MAGNO" />
 
       <section className="section-padding bg-background">
         <div className="container-custom grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">

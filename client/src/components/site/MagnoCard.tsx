@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import symbol from "@/assets/brand/symbol.png";
 import { WhatsAppCta } from "./WhatsAppCta";
 
-export function MagnoCard() {
+export function MagnoCard({ showProfileLink = true }: { showProfileLink?: boolean }) {
   return (
     <article className="grid overflow-hidden rounded-xl bg-primary-deep text-primary-foreground md:grid-cols-[minmax(16rem,0.8fr)_1.2fr]">
       <div className="relative flex min-h-72 items-center justify-center overflow-hidden bg-primary-soft p-10">
@@ -17,7 +17,7 @@ export function MagnoCard() {
         <p className="mt-3 text-primary-foreground/80">Com experiência na comercialização de consórcios do Itaú, Magno tornou-se conhecido pela capacidade de entender o objetivo de cada cliente e transformar uma conversa sobre parcela em uma conversa sobre estratégia.</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <WhatsAppCta message="Olá, Magno. Quero entender qual estratégia de consórcio faz sentido para o meu objetivo." label="Falar com o Magno" variant="magno-card" />
-          <Link href="/magno-stiti-de-paula/" className="inline-flex min-h-12 items-center justify-center rounded-md border border-primary-foreground/40 px-6 py-3 font-semibold text-primary-foreground hover:border-highlight hover:text-highlight">Conheça o Magno</Link>
+          {showProfileLink ? <Link href="/magno-stiti-de-paula/" className="inline-flex min-h-12 items-center justify-center rounded-md border border-primary-foreground/40 px-6 py-3 font-semibold text-primary-foreground hover:border-highlight hover:text-highlight">Conheça o Magno</Link> : null}
         </div>
       </div>
     </article>

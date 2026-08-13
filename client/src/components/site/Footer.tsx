@@ -41,7 +41,7 @@ export function Footer() {
         <div className="md:col-span-2">
           <img src={logo} alt="Santa Sophia Consórcios" width="248" height="45" className="mb-6 h-auto w-56" loading="lazy" />
           <p className="max-w-sm text-sm text-primary-foreground/80">Consórcio com estratégia. Crédito com propósito.</p>
-          <p className="mt-3 max-w-sm text-sm text-primary-foreground/80">Atendimento digital e consultivo para clientes em todo o Brasil.</p>
+          <p className="mt-3 max-w-sm text-sm text-primary-foreground/80">Atendimento para clientes em todo o Brasil.</p>
           <div className="mt-6 flex gap-3">
             <a href={INSTAGRAM} target="_blank" rel="noreferrer" aria-label="Instagram da Santa Sophia" className="rounded-md border border-primary-foreground/30 p-2.5 text-highlight hover:border-highlight">
               <Instagram className="size-5" aria-hidden="true" />
@@ -53,7 +53,7 @@ export function Footer() {
         </div>
         {footerGroups.map((group) => (
           <div key={group.title}>
-            <h2 className="mb-4 text-sm font-bold uppercase tracking-widest text-highlight">{group.title}</h2>
+            <p className="mb-4 font-heading text-sm font-bold uppercase tracking-widest text-highlight">{group.title}</p>
             <ul className="space-y-3 text-sm text-primary-foreground/80">
               {group.links.map(([label, href]) => (
                 <li key={href}><Link href={href} className="hover:text-primary-foreground">{label}</Link></li>

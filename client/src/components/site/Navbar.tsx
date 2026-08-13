@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu } from "lucide-react";
 import { Link } from "wouter";
 import logo from "@/assets/brand/logo-horizontal.png";
@@ -19,6 +20,26 @@ const navLinkClass =
   "rounded-md px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-surface focus-visible:outline-ring";
 
 export function Navbar() {
+  const [consortiumOpen, setConsortiumOpen] = useState(false);
+  const consortiumMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function closeOnOutsideClick(event: PointerEvent) {
+      if (!consortiumMenuRef.current?.contains(event.target as Node)) setConsortiumOpen(false);
+    }
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setConsortiumOpen(false);
+    }
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
+
   function closeMobileMenu(event: React.MouseEvent<HTMLAnchorElement>) {
     event.currentTarget.closest("details")?.removeAttribute("open");
   }
@@ -31,14 +52,28 @@ export function Navbar() {
         </Link>
 
         <div className="hidden items-center gap-1 lg:flex">
-          <div className="group relative">
-            <button type="button" className={`${navLinkClass} flex items-center gap-1`} aria-haspopup="true">
+          <div
+            ref={consortiumMenuRef}
+            className="group relative"
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) setConsortiumOpen(false);
+            }}
+          >
+            <button
+              type="button"
+              className={`${navLinkClass} flex items-center gap-1`}
+              aria-haspopup="true"
+              aria-expanded={consortiumOpen}
+              aria-controls="menu-consorcios"
+              onClick={() => setConsortiumOpen((open) => !open)}
+              onFocus={() => setConsortiumOpen(true)}
+            >
               Consórcios
-              <ChevronDown className="size-4 transition-transform group-focus-within:rotate-180 group-hover:rotate-180" aria-hidden="true" />
+              <ChevronDown className={`size-4 transition-transform group-hover:rotate-180 ${consortiumOpen ? "rotate-180" : ""}`} aria-hidden="true" />
             </button>
-            <div className="invisible absolute left-0 top-full w-64 translate-y-2 rounded-xl border border-border bg-background p-2 shadow-card transition-transform group-focus-within:visible group-focus-within:translate-y-0 group-hover:visible group-hover:translate-y-0">
+            <div id="menu-consorcios" className={`${consortiumOpen ? "visible translate-y-0" : "invisible translate-y-2"} absolute left-0 top-full w-64 rounded-xl border border-border bg-background p-2 shadow-card transition-transform group-hover:visible group-hover:translate-y-0`}>
               {consortiumLinks.map(([label, href]) => (
-                <Link key={href} href={href} className="block rounded-md px-3 py-2.5 text-sm font-medium text-foreground hover:bg-surface hover:text-primary">
+                <Link key={href} href={href} className="block rounded-md px-3 py-2.5 text-sm font-medium text-foreground hover:bg-surface hover:text-primary" onClick={() => setConsortiumOpen(false)}>
                   {label}
                 </Link>
               ))}

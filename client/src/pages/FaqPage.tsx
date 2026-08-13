@@ -22,7 +22,7 @@ export default function FaqPage() {
           ))}
         </div>
       </section>
-      <CtaBand title="Ainda ficou com dúvida?" text="Você não precisa entender tudo sobre consórcio antes de conversar com um especialista. Conte para o Magno o que você quer comprar, quanto pretende investir e em quanto tempo gostaria de realizar. A partir dessas informações, você poderá entender quais possibilidades podem fazer sentido para o seu planejamento." whatsappMessage="Olá, Magno. Ainda tenho uma dúvida sobre consórcio e quero falar com um especialista." />
+      <CtaBand title="Ainda ficou com dúvida?" text="Você não precisa entender tudo sobre consórcio antes de conversar com um especialista. Conte para o Magno o que você quer comprar, quanto pretende investir e em quanto tempo gostaria de realizar. A partir dessas informações, você poderá entender quais possibilidades podem fazer sentido para o seu planejamento." whatsappMessage="Olá, Magno. Ainda tenho uma dúvida sobre consórcio e quero falar com um especialista." label="QUERO FALAR COM O MAGNO" />
       <section className="section-padding-sm bg-background"><div className="container-custom"><p className="font-semibold text-primary">Santa Sophia — Consórcio com estratégia. Crédito com propósito.</p><p className="mt-5 text-xs leading-relaxed text-muted-foreground">{FAQ_DISCLAIMER}</p></div></section>
     </Layout>
   );
