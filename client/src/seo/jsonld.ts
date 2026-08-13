@@ -67,7 +67,16 @@ export function personJsonLd() {
     name: "Magno Stiti de Paula",
     jobTitle: "Especialista em Consórcios",
     worksFor: organizationReference,
-    knowsAbout: ["Consórcios", "Carta de crédito", "Planejamento de compra"],
+    knowsAbout: [
+      "Consórcios",
+      "Carta de crédito",
+      "Planejamento de compra",
+      "Consórcio de imóveis",
+      "Consórcio de veículos",
+      "Consórcio de caminhões e veículos pesados",
+      "Consórcio para empresas",
+      "Crédito e organização financeira",
+    ],
     url: absUrl("/magno-stiti-de-paula/"),
   };
 }
