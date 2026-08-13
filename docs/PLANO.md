@@ -348,3 +348,36 @@ O QA (invariantes Sintetiza) reprovou a primeira entrega por **INV-5 (LGPD)** e 
 | — | Borda pública só com rate-limit | honeypot no formulário |
 
 Suíte de testes (vitest + fast-check) versionada em `tests/`: 35 testes, incluindo as propriedades INV-2 (300 runs) e INV-5.
+
+---
+
+## 9. Auditoria Lighthouse — evidência da Fase 6
+
+Lighthouse 13.4.1, preset mobile padrão, Chrome headless, contra o build de produção (`npm run build && npm run start`) servido em localhost. Todas as 12 rotas indexáveis, uma execução por rota.
+
+| Rota | Perf | A11y | Best Practices | SEO |
+|---|---|---|---|---|
+| `/` | 98 | 100 | 100 | 100 |
+| `/consorcio-de-imoveis/` | 98 | 100 | 100 | 100 |
+| `/consorcio-de-veiculos/` | 98 | 100 | 100 | 100 |
+| `/consorcio-de-caminhoes/` | 98 | 100 | 100 | 100 |
+| `/consorcio-para-empresas/` | 98 | 100 | 100 | 100 |
+| `/o-que-e-consorcio/` | 98 | 100 | 100 | 100 |
+| `/quem-somos/` | 97 | 100 | 100 | 100 |
+| `/magno-stiti-de-paula/` | 97 | 100 | 100 | 100 |
+| `/perguntas-frequentes/` | 98 | 100 | 100 | 100 |
+| `/simulacao-de-consorcio/` | 97 | 100 | 100 | 100 |
+| `/fale-com-um-especialista/` | 97 | 100 | 100 | 100 |
+| `/politica-de-privacidade/` | 97 | 100 | 100 | 100 |
+
+**Critério de aceite da Fase 6 (Perf ≥ 90, SEO ≥ 95, A11y ≥ 95, BP ≥ 95): atendido em todas as rotas.**
+
+Core Web Vitals na home: FCP 1,4 s · LCP 2,3 s · TBT 0 ms · CLS 0 · Speed Index 1,4 s.
+
+JavaScript inicial: 98,2 KB gzip, contra o orçamento de 250 KB.
+
+Ressalvas de leitura destes números:
+
+1. **Medição local.** Sem latência de rede real, sem TLS e sem a CPU da VPS. O `Initial server response time` de 0 ms não se sustentará em produção. Repetir a auditoria com o site no ar, via PageSpeed Insights, é o que vale para o Search Console.
+2. **Build sem GA4.** `VITE_GA_ID` estava vazio, então o `gtag` não foi carregado. Quando o ID for configurado, entra JavaScript de terceiro que costuma custar alguns pontos de Performance e Best Practices.
+3. **A única oportunidade apontada** foi "Reduce unused JavaScript", com ~44 KiB estimados — resíduo do React que o code-splitting por rota já existente não elimina. Não compensa perseguir com a nota em 97–98.
