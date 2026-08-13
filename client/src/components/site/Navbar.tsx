@@ -13,6 +13,7 @@ const consortiumLinks = [
 const mainLinks = [
   ["Como funciona", "/o-que-e-consorcio/"],
   ["Quem somos", "/quem-somos/"],
+  ["O especialista", "/magno-stiti-de-paula/"],
   ["FAQ", "/perguntas-frequentes/"],
 ] as const;
 
