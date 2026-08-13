@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /*
+   * ========================================
+   * WHITELABEL V2 — COLOR PALETTE
+   * ========================================
+   */
+
+  /* Primary: Deep navy — institutional authority */
+  --color-primary: #1B3A5C;
+  --color-primary-foreground: #FFFFFF;
+
+  /* Secondary: Soft teal — accent & highlights */
+  --color-secondary: #5B8C9B;
+  --color-secondary-foreground: #FFFFFF;
+
+  /* Muted: Warm off-white — alternate section backgrounds */
+  --color-muted: #F0EDE9;
+  --color-muted-foreground: #5A6A78;
+
+  /* Accent: Neutral warm */
+  --color-accent: #E8E5E0;
+  --color-accent-foreground: #1C2B39;
+
+  /* Neutrals & Text */
+  --color-background: #FAFAF8;
+  --color-foreground: #1C2B39;
+
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1C2B39;
+
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #1C2B39;
+
+  /* Borders */
+  --color-border: #E4E1DC;
+  --color-input: #E4E1DC;
+  --color-ring: #5B8C9B;
+
+  /* Semantic */
+  --color-destructive: 0 84% 60%;
+  --color-destructive-foreground: 0 0% 100%;
+
+  /* Typography */
+  --font-sans: 'Montserrat', sans-serif;
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Montserrat', sans-serif;
+
+  /* Spacing & Radius */
+  --radius: 0.375rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    background-color: #FAFAF8;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Lora', Georgia, serif;
+    @apply font-bold;
+  }
+  h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    @apply font-semibold;
+  }
+  p {
+    font-family: 'Montserrat', sans-serif;
+    @apply leading-relaxed;
+    color: #4A5A68;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .font-heading {
+    font-family: 'Lora', Georgia, serif;
+  }
+  .font-sans-ui {
+    font-family: 'Montserrat', sans-serif;
+  }
+  .glass-nav {
+    @apply bg-white/95 backdrop-blur-md border-b border-black/5 shadow-sm supports-[backdrop-filter]:bg-white/90;
+  }
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+  .section-padding-sm {
+    @apply py-14 md:py-20;
+  }
+  .container-custom {
+    @apply container mx-auto px-4 md:px-6 max-w-7xl;
+  }
+  .eyebrow-text {
+    font-family: 'Montserrat', sans-serif;
+    @apply text-xs font-semibold uppercase tracking-widest;
+    color: #5B8C9B;
+  }
+  .bg-warm {
+    background-color: #F0EDE9;
+  }
+  .bg-cool-light {
+    background-color: #EEF4F7;
+  }
+}
