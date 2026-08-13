@@ -1,5 +1,5 @@
 import { build as esbuild } from "esbuild";
-import { build as viteBuild } from "vite";
+import { build as viteBuild, loadEnv } from "vite";
 import { readFile, rm } from "node:fs/promises";
 import path from "node:path";
 import { prerenderSite } from "./prerender";
@@ -12,22 +12,17 @@ const ssrDist = path.resolve(projectRoot, "dist/ssr");
 const allowlist = [
   "@google/generative-ai",
   "axios",
-  "connect-pg-simple",
   "cors",
   "date-fns",
   "drizzle-orm",
   "drizzle-zod",
   "express",
   "express-rate-limit",
-  "express-session",
   "jsonwebtoken",
-  "memorystore",
   "multer",
   "nanoid",
   "nodemailer",
   "openai",
-  "passport",
-  "passport-local",
   "pg",
   "stripe",
   "uuid",
@@ -38,6 +33,7 @@ const allowlist = [
 ];
 
 async function buildAll() {
+  Object.assign(process.env, loadEnv("production", projectRoot, "VITE_"));
   await rm(path.resolve(projectRoot, "dist"), { recursive: true, force: true });
 
   console.log("building client...");

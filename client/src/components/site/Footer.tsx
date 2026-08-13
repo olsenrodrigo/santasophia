@@ -46,7 +46,7 @@ export function Footer() {
             <a href={INSTAGRAM} target="_blank" rel="noreferrer" aria-label="Instagram da Santa Sophia" className="rounded-md border border-primary-foreground/30 p-2.5 text-highlight hover:border-highlight">
               <Instagram className="size-5" aria-hidden="true" />
             </a>
-            <a href={`${WHATSAPP_BASE_URL}?text=${encodeURIComponent("Olá, quero falar com um especialista da Santa Sophia.")}`} target="_blank" rel="noreferrer" aria-label="WhatsApp da Santa Sophia" className="rounded-md border border-primary-foreground/30 p-2.5 text-highlight hover:border-highlight">
+            <a href={`${WHATSAPP_BASE_URL}?text=${encodeURIComponent("Olá, quero falar com um especialista da Santa Sophia.")}`} target="_blank" rel="noreferrer" aria-label="WhatsApp da Santa Sophia" className="rounded-md border border-primary-foreground/30 p-2.5 text-highlight hover:border-highlight" onClick={() => trackEvent("whatsapp_click", { page: window.location.pathname, variant: "footer-icon" })}>
               <MessageCircle className="size-5" aria-hidden="true" />
             </a>
           </div>
@@ -69,7 +69,7 @@ export function Footer() {
             <Phone className="mt-0.5 size-5 shrink-0 text-highlight" aria-hidden="true" />
             <span><strong className="block text-primary-foreground">{PHONE_DISPLAY}</strong>{PHONE_HOURS}</span>
           </a>
-          <a href={WHATSAPP_BASE_URL} className="flex items-start gap-3 text-primary-foreground/85 hover:text-primary-foreground">
+          <a href={`${WHATSAPP_BASE_URL}?text=${encodeURIComponent("Olá, quero falar com um especialista da Santa Sophia.")}`} target="_blank" rel="noreferrer" className="flex items-start gap-3 text-primary-foreground/85 hover:text-primary-foreground" onClick={() => trackEvent("whatsapp_click", { page: window.location.pathname, variant: "footer-contact" })}>
             <MessageCircle className="mt-0.5 size-5 shrink-0 text-highlight" aria-hidden="true" />
             <span><strong className="block text-primary-foreground">WhatsApp</strong>{WHATSAPP_DISPLAY}</span>
           </a>

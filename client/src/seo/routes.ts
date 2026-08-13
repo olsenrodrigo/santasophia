@@ -41,6 +41,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/consorcio-de-imoveis/",
+    ogImage: "/og/consorcio-de-imoveis.jpg",
     title: "Consórcio de Imóveis: casa, apto e terreno | Santa Sophia",
     description:
       "Consórcio imobiliário com planejamento: carta de crédito para comprar casa, apartamento, terreno, construir ou reformar. Fale com um especialista da Santa Sophia.",
@@ -59,6 +60,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/consorcio-de-veiculos/",
+    ogImage: "/og/consorcio-de-veiculos.jpg",
     title: "Consórcio de Veículos: carros e motos | Santa Sophia",
     description:
       "Consórcio de carros e motos com estratégia: entenda quando o consórcio de veículos faz sentido e planeje a troca do seu carro com a Santa Sophia.",
@@ -77,6 +79,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/consorcio-de-caminhoes/",
+    ogImage: "/og/consorcio-de-caminhoes.jpg",
     title: "Consórcio de Caminhões e Veículos Pesados | Santa Sophia",
     description:
       "Consórcio de caminhões, máquinas e veículos pesados para quem trabalha: renove ou amplie sua frota com aquisição planejada. Fale com a Santa Sophia.",
@@ -95,6 +98,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/consorcio-para-empresas/",
+    ogImage: "/og/consorcio-para-empresas.jpg",
     title: "Consórcio para Empresas: máquinas e frota | Santa Sophia",
     description:
       "Consórcio empresarial para expansão, máquinas, equipamentos e frota. Capital planejado para a estratégia de crescimento da sua empresa. Fale com um especialista.",
@@ -113,6 +117,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/o-que-e-consorcio/",
+    ogImage: "/og/o-que-e-consorcio.jpg",
     title: "O que é consórcio e como funciona? | Santa Sophia",
     description:
       "Entenda o que é consórcio, como funciona a contemplação, o lance e a carta de crédito, e como escolher um consórcio com segurança. Guia da Santa Sophia.",
@@ -123,6 +128,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/quem-somos/",
+    ogImage: "/og/quem-somos.jpg",
     title: "Quem somos | Santa Sophia Consórcios",
     description:
       "A Santa Sophia é uma empresa especializada em soluções de crédito por meio de consórcio, com atendimento digital e consultivo para clientes em todo o Brasil.",
@@ -134,6 +140,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/magno-stiti-de-paula/",
+    ogImage: "/og/magno-stiti-de-paula.jpg",
     title: "Magno Stiti de Paula — Especialista em Consórcios",
     description:
       "Magno Stiti de Paula é especialista em consórcios e referência comercial no segmento, com experiência na comercialização de consórcios do Itaú. Fale com o Magno.",
@@ -147,6 +154,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/perguntas-frequentes/",
+    ogImage: "/og/perguntas-frequentes.jpg",
     title: "Perguntas Frequentes sobre Consórcio | Santa Sophia",
     description:
       "Consórcio vale a pena? Consórcio ou financiamento? Como funciona o lance? Respostas diretas da Santa Sophia para as principais dúvidas sobre consórcio.",
@@ -158,6 +166,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/simulacao-de-consorcio/",
+    ogImage: "/og/simulacao-de-consorcio.jpg",
     title: "Simulação de Consórcio personalizada | Santa Sophia",
     description:
       "Solicite uma simulação de consórcio feita por um especialista: conte seu objetivo, prazo e valor, e receba uma análise personalizada da Santa Sophia.",
@@ -169,6 +178,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/fale-com-um-especialista/",
+    ogImage: "/og/fale-com-um-especialista.jpg",
     title: "Fale com um Especialista em Consórcio | Santa Sophia",
     description:
       "Fale com Magno Stiti de Paula e a equipe Santa Sophia: WhatsApp, 0800 e formulário. Uma conversa séria sobre o seu próximo passo, sem pressão.",

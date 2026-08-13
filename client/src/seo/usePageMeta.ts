@@ -22,6 +22,7 @@ export function usePageMeta() {
     setMeta('meta[property="og:image"]', "content", absUrl(route.ogImage ?? DEFAULT_OG_IMAGE));
     setMeta('meta[name="twitter:title"]', "content", route.title);
     setMeta('meta[name="twitter:description"]', "content", route.description);
+    setMeta('meta[name="twitter:image"]', "content", absUrl(route.ogImage ?? DEFAULT_OG_IMAGE));
 
     const canonicalElement = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     canonicalElement?.setAttribute("href", canonical);

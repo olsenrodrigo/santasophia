@@ -26,11 +26,15 @@ export function buildHead(route: RouteMeta): string {
         `<script type="application/ld+json">${JSON.stringify(schema).replaceAll("<", "\\u003c")}</script>`,
     )
     .join("\n    ");
+  const gscVerification = process.env.VITE_GSC_VERIFICATION?.trim();
 
   return [
     `<title>${escapeHtml(route.title)}</title>`,
     `<meta name="description" content="${escapeHtml(route.description)}" />`,
     `<link rel="canonical" href="${canonical}" />`,
+    gscVerification
+      ? `<meta name="google-site-verification" content="${escapeHtml(gscVerification)}" />`
+      : "",
     route.noindex ? '<meta name="robots" content="noindex, follow" />' : "",
     '<meta property="og:type" content="website" />',
     '<meta property="og:locale" content="pt_BR" />',
