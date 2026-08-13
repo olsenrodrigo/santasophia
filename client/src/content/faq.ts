@@ -15,6 +15,9 @@ export const faqCategoryLabels: Record<FaqCategory, string> = {
   empresas: "Empresas",
 };
 
+export const FAQ_DISCLAIMER =
+  "As condições, taxas, prazos, critérios de contemplação, reajustes e formas de utilização do crédito variam conforme a administradora, o grupo e o contrato. A contemplação não é garantida nem necessariamente imediata. Consulte as condições aplicáveis antes da contratação.";
+
 export const faqEntries: FaqEntry[] = [
   {
     id: "o-que-e-consorcio",
