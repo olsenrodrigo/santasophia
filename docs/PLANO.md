@@ -317,7 +317,7 @@ GA4 + eventos, meta GSC, og-images, llms.txt final, prune de dependências, audi
 8. **Accordion do FAQ e SEO.** Radix Accordion desmonta o conteúdo fechado por padrão. Para garantir conteúdo no HTML pré-renderizado: `forceMount` + colapso via CSS, ou `<details>` nativo. O critério de aceite da Fase 4 (respostas no view-source) é inegociável.
 9. **Peso do bundle vs CWV.** framer-motion inteiro (~34 KB gz); `ui/chart.tsx` puxa recharts (~100 KB) — deletar o arquivo previne. Sem code-splitting por rota (site pequeno). Orçamento: ≤ 250 KB gz.
 10. **Compliance (Lei 11.795/BACEN).** A copy aprovada já é conservadora — não "melhorar" com promessas. A simulação não exibe números/parcelas inventados; coleta o objetivo e promete análise por especialista. Disclaimer no footer de todas as páginas.
-11. **Foto do Magno:** indisponível (ver decisão nº 4 no topo). Fallback gráfico com o símbolo "S".
+11. ~~**Foto do Magno:** indisponível. Fallback gráfico com o símbolo "S".~~ **Resolvido:** o cliente liberou a foto (decisão nº 4 no topo); o fallback saiu e o `MagnoPortrait` serve a imagem aprovada.
 12. **Storage fallback.** O `pg.Pool` atual é criado no import de `server/storage.ts` mesmo sem `DATABASE_URL` — mover a criação para dentro do branch condicional para o server não depender de Postgres em import-time.
 
 ---

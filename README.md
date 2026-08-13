@@ -29,10 +29,38 @@ Use `PORT` para alterar a porta do servidor, por exemplo `PORT=5055 npm run star
 
 O build gera o servidor em `dist/index.cjs` e uma página HTML pré-renderizada por rota em `dist/public/`. O processo Node precisa ter permissão de escrita em `data/` quando `DATABASE_URL` não estiver configurada.
 
+O servidor escuta em `0.0.0.0` na porta `PORT` (padrão `5000`). Em produção ele fica atrás de um proxy reverso, que termina o TLS e encaminha para essa porta.
+
+### VPS (Hostinger)
+
+O alvo de produção é uma VPS com Node.js 20+, Nginx como proxy reverso e certificado Let's Encrypt.
+
+Como as variáveis `VITE_` são incorporadas ao bundle, **o build precisa rodar depois de o `.env` existir**. Trocar um valor `VITE_` exige novo `npm run build`.
+
+```bash
+# na VPS, dentro do diretório da aplicação
+git pull
+npm ci
+# criar/editar .env antes do build (ver "Variáveis de ambiente")
+npm run check && npm run build
+sudo systemctl restart santasophia
+```
+
+Pontos de atenção:
+
+- **`TRUST_PROXY`**: defina como `1` quando houver Nginx ou CDN à frente. Sem isso o rate-limit de `/api/contact` enxerga o IP do proxy e todos os visitantes dividem o mesmo balde.
+- **Escrita em `data/`**: sem `DATABASE_URL`, os contatos vão para `data/contact-messages.jsonl`. O usuário do serviço precisa de permissão de escrita nesse diretório, que contém dado pessoal — mantenha-o fora de backups públicos e do controle de versão (já está no `.gitignore`).
+- **Nginx**: encaminhe para `http://127.0.0.1:5000` preservando `X-Forwarded-For` e `X-Forwarded-Proto`.
+- **Processo**: use uma unit systemd (ou PM2) com `Restart=always` e `EnvironmentFile` apontando para o `.env`.
+
 ## Variáveis de ambiente
 
-- `VITE_GA_ID`: ID de medição do Google Analytics 4, por exemplo `G-XXXXXXXXXX`. O GA4 só é carregado no build de produção quando esta variável existe.
-- `VITE_GSC_VERIFICATION`: token de verificação do Google Search Console inserido nas páginas durante o build.
+Todas são opcionais: o site sobe sem nenhuma delas, degradando funcionalidade de forma previsível.
+
+- `PORT`: porta do servidor HTTP. O padrão é `5000`.
+- `TRUST_PROXY`: número de proxies confiáveis à frente da aplicação. Defina `1` atrás de Nginx ou CDN para o rate-limit enxergar o IP real do visitante.
+- `VITE_GA_ID`: ID de medição do Google Analytics 4, por exemplo `G-XXXXXXXXXX`. O GA4 só é carregado no build de produção quando esta variável existe. **Ainda não configurado** — sem ele o site não tem analytics.
+- `VITE_GSC_VERIFICATION`: token de verificação do Google Search Console inserido nas páginas durante o build. **Não é necessário neste projeto**: a verificação do domínio é feita por registro DNS. A variável continua suportada caso a verificação por meta tag venha a ser preferida.
 - `DATABASE_URL`: conexão PostgreSQL usada para armazenar contatos. Sem ela, os contatos são gravados em `data/contact-messages.jsonl`.
 - `SMTP_HOST`: host do servidor SMTP. O padrão é `smtp.gmail.com`.
 - `SMTP_PORT`: porta SMTP. O padrão é `587`.
@@ -52,12 +80,8 @@ grep -rniE "dinheiro r[áa]pido" dist/public --include='*.html' | grep -viE "nã
 
 ## Foto do Magno
 
-O site usa o símbolo da Santa Sophia como fallback gráfico. Quando a foto aprovada estiver disponível:
+A foto aprovada já está integrada em `client/src/components/site/MagnoPortrait.tsx`, servida como `<picture>` com WebP e JPEG a partir de `client/src/assets/brand/`. O componente define dimensões explícitas, texto alternativo descritivo, `loading="lazy"` na home e `fetchpriority="high"` na página do Magno.
 
-1. salve-a como `client/src/assets/brand/magno.jpg`;
-2. abra `client/src/components/site/MagnoPortrait.tsx`;
-3. siga o comentário `PONTO DE TROCA DA FOTO`: descomente o `<img>` preparado e apague o bloco de fallback logo abaixo.
-
-O componente já define dimensões explícitas, texto alternativo descritivo, `loading="lazy"` na home e `fetchpriority="high"` na página do Magno.
+O original tem 300×375, o que fixa o `max-w-[300px]` do componente: acima disso a imagem amolece em tela retina. Se um original em resolução maior for fornecido, substitua os dois arquivos em `assets/brand/` e relaxe esse limite.
 
 Não use foto de banco de imagens ou imagem não aprovada.
