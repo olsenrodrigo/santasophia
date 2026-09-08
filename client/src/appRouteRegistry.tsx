@@ -8,6 +8,7 @@ import MagnoPage from "@/pages/MagnoPage";
 import NotFound from "@/pages/not-found";
 import PrivacyPage from "@/pages/PrivacyPage";
 import { BusinessPage, RealEstatePage, TrucksPage, VehiclesPage } from "@/pages/SegmentPage";
+import { ConstructionPage, LeveragePage, PayoffPage } from "@/pages/SolutionPage";
 import { routes, type RoutePage } from "@/seo/routes";
 
 function SimulationPage() {
@@ -17,9 +18,12 @@ function SimulationPage() {
 const componentsByPage: Record<RoutePage, ComponentType> = {
   home: Home,
   "real-estate": RealEstatePage,
+  construction: ConstructionPage,
+  payoff: PayoffPage,
   vehicles: VehiclesPage,
   trucks: TrucksPage,
   business: BusinessPage,
+  leverage: LeveragePage,
   guide: ConsortiumGuide,
   about: AboutPage,
   magno: MagnoPage,

@@ -6,6 +6,22 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { trackEvent } from "@/lib/analytics";
 
+/**
+ * Pergunta de entrada de qualificação: identifica se o cliente busca moradia,
+ * obra, quitação, veículo, estrutura de trabalho, empresa ou patrimônio.
+ * O valor escolhido é concatenado na mensagem — o schema do contato não muda.
+ */
+const objectiveOptions = [
+  "Moradia (casa, apartamento, terreno)",
+  "Construção ou reforma",
+  "Quitação de financiamento",
+  "Veículo (carro ou moto)",
+  "Caminhões, pesados e frota",
+  "Empresa (máquinas, equipamentos, expansão)",
+  "Alavancagem patrimonial",
+  "Outro objetivo",
+];
+
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
@@ -66,12 +82,10 @@ export function ContactForm() {
       </div>
       <div>
         <Label htmlFor="contact-objective">Objetivo</Label>
-        <select id="contact-objective" name="objective" defaultValue="Imóveis" required className="mt-2 flex min-h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-          <option value="Imóveis">Imóveis</option>
-          <option value="Veículos">Veículos</option>
-          <option value="Pesados">Caminhões e veículos pesados</option>
-          <option value="Empresas">Empresas</option>
-          <option value="Outro">Outro objetivo</option>
+        <select id="contact-objective" name="objective" defaultValue="Moradia (casa, apartamento, terreno)" required className="mt-2 flex min-h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          {objectiveOptions.map((option) => (
+            <option key={option} value={option}>{option}</option>
+          ))}
         </select>
       </div>
       <div>

@@ -4,8 +4,33 @@ import { Layout } from "@/components/site/Layout";
 import { MagnoPortrait } from "@/components/site/MagnoPortrait";
 import { MethodSteps } from "@/components/site/MethodSteps";
 import { PageHero } from "@/components/site/PageHero";
+import { PressClipping } from "@/components/site/PressClippings";
+import { Reveal } from "@/components/site/Reveal";
 import { SegmentCards } from "@/components/site/SegmentCards";
 import { segments } from "@/content/segments";
+
+const milestones = [
+  {
+    title: "Início no consórcio",
+    description:
+      "Começou no mercado de consórcios ainda jovem, em uma administradora ligada a uma montadora, onde aprendeu as regras do sistema por dentro.",
+  },
+  {
+    title: "Formação",
+    description:
+      "Bacharel em Direito e administrador de empresas, especializou-se em crédito imobiliário — a base da leitura jurídica e financeira que faz de cada operação.",
+  },
+  {
+    title: "Santa Sophia, Ribeirão Preto",
+    description:
+      "Fundou a Santa Sophia em Ribeirão Preto (SP), atendendo famílias, investidores e construtoras. Em 2011, foi sócio-fundador de um correspondente Caixa que se tornou referência no interior paulista.",
+  },
+  {
+    title: "Consultoria digital para todo o Brasil",
+    description:
+      "Hoje concentra a atuação no crédito por consórcio, como representante autorizado Itaú Consórcios, com atendimento 100% digital de onde o cliente estiver.",
+  },
+];
 
 export default function MagnoPage() {
   return (
@@ -27,6 +52,29 @@ export default function MagnoPage() {
           </div>
         </div>
       </section>
+      <Reveal><section className="section-padding bg-surface">
+        <div className="container-custom">
+          <p className="eyebrow-text text-muted-foreground">17 anos no mercado de crédito</p>
+          <h2 className="mt-4 text-[clamp(1.6rem,3vw,2.4rem)]">Trajetória</h2>
+          <ol className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {milestones.map((milestone, index) => (
+              <li key={milestone.title} className="border-t-4 border-primary bg-background p-7">
+                <span className="font-heading text-4xl font-extrabold text-primary/60" aria-hidden="true">{`0${index + 1}`}</span>
+                <h3 className="mt-4 text-lg">{milestone.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground">{milestone.description}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section></Reveal>
+      <Reveal><section className="section-padding bg-background">
+        <div className="container-custom">
+          <h2 className="text-[clamp(1.6rem,3vw,2.4rem)]">Na mídia</h2>
+          <div className="mt-10 max-w-2xl">
+            <PressClipping id="magno-revide" />
+          </div>
+        </div>
+      </section></Reveal>
       <section className="section-padding bg-primary-deep text-primary-foreground">
         <div className="container-custom">
           <h2 className="max-w-3xl text-[clamp(1.6rem,3vw,2.4rem)] text-primary-foreground">Uma conversa sobre estratégia, não apenas sobre parcela.</h2>

@@ -4,7 +4,7 @@ import { segments, type Segment } from "@/content/segments";
 
 export function SegmentCards({ items = segments }: { items?: Segment[] }) {
   return (
-    <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-2 lg:grid-cols-5">
+    <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
       {items.map(({ title, description, href, icon: Icon }) => (
         <Link key={href} href={href} className="group flex min-h-72 flex-col bg-background p-6 transition-colors hover:bg-surface">
           <span className="mb-8 inline-flex size-12 items-center justify-center rounded-full bg-primary text-highlight">

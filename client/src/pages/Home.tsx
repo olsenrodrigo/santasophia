@@ -1,14 +1,17 @@
-import { ArrowRight, Building2, Car, Home as HomeIcon, Truck, Wrench } from "lucide-react";
+import { ArrowRight, Building2, Car, HardHat, Home as HomeIcon, PaintRoller, Truck, Wrench } from "lucide-react";
 import { Link } from "wouter";
 import symbol from "@/assets/brand/symbol.png";
 import { AnswerBlock } from "@/components/site/AnswerBlock";
 import { CtaBand } from "@/components/site/CtaBand";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
+import { ItauPillars } from "@/components/site/ItauPillars";
+import { ItauSeal } from "@/components/site/ItauSeal";
 import { Layout } from "@/components/site/Layout";
 import { MagnoPortrait } from "@/components/site/MagnoPortrait";
 import { MethodSteps } from "@/components/site/MethodSteps";
 import { Reveal } from "@/components/site/Reveal";
 import { SegmentCards } from "@/components/site/SegmentCards";
+import { TrustBar } from "@/components/site/TrustBar";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 
 const homeFaq = [
@@ -37,6 +40,8 @@ const homeFaq = [
 const goals = [
   [HomeIcon, "Casa"],
   [Building2, "Apartamento"],
+  [HardHat, "Construção"],
+  [PaintRoller, "Reforma"],
   [Car, "Carro"],
   [Truck, "Caminhão"],
   [Wrench, "Equipamentos"],
@@ -50,9 +55,13 @@ export default function Home() {
       <section className="relative overflow-hidden bg-primary-deep py-20 text-primary-foreground md:py-28">
         <img src={symbol} alt="" width="564" height="512" aria-hidden="true" className="pointer-events-none absolute -right-28 top-1/2 hidden w-[32rem] -translate-y-1/2 opacity-10 md:block" />
         <div className="container-custom relative z-10">
-          <p className="eyebrow-text text-highlight">Santa Sophia Consórcios</p>
-          <h1 className="mt-5 max-w-5xl text-balance text-[clamp(2.25rem,5vw,3.75rem)] leading-tight text-primary-foreground">Seu próximo grande passo não precisa esperar.</h1>
-          <h2 className="mt-6 max-w-4xl text-xl leading-relaxed text-primary-foreground md:text-2xl">Você não precisa ter todo o dinheiro hoje para começar a construir o que quer amanhã.</h2>
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <p className="eyebrow-text text-highlight">Santa Sophia Consórcios · Representante autorizada Itaú Consórcios</p>
+            <ItauSeal on="dark" priority className="w-[220px]" />
+          </div>
+          <h1 className="mt-6 max-w-5xl text-balance text-[clamp(2.25rem,5vw,3.75rem)] leading-tight text-primary-foreground">Construa e alavanque seu patrimônio com a solidez do Itaú e a inteligência da Santa Sophia.</h1>
+          <h2 className="mt-6 max-w-4xl text-xl leading-relaxed text-primary-foreground md:text-2xl">Seu próximo grande passo não precisa esperar.</h2>
+          <p className="mt-6 max-w-3xl text-lg text-primary-foreground/85">Esqueça os juros abusivos do financiamento tradicional. Tenha acesso às melhores estratégias de consórcio do mercado, prazos de até 240 meses e um plano desenhado sob medida para o seu momento de vida.</p>
           <ul className="mt-8 flex max-w-5xl flex-wrap gap-3" aria-label="Possibilidades de planejamento">
             {goals.map(([Icon, label]) => (
               <li key={label} className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 px-4 py-2 text-sm font-semibold">
@@ -63,6 +72,7 @@ export default function Home() {
             <li className="rounded-full border border-primary-foreground/25 px-4 py-2 text-sm font-semibold">Investimentos</li>
           </ul>
           <div className="mt-9 max-w-3xl space-y-4 text-lg text-primary-foreground/85">
+            <p>Você não precisa ter todo o dinheiro hoje para começar a construir o que quer amanhã.</p>
             <p>O que muda tudo não é apenas quanto dinheiro você tem.</p>
             <p>É <em>como você decide usar o dinheiro que tem.</em></p>
             <p>A Santa Sophia conecta você às melhores possibilidades em consórcio, com atendimento consultivo e estratégias personalizadas para transformar crédito em poder de compra.</p>
@@ -70,17 +80,19 @@ export default function Home() {
           </div>
           <h2 className="mt-10 text-xl text-primary-foreground">Fale com o Magno e descubra qual estratégia faz sentido para você.</h2>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <WhatsAppCta message={whatsappMessage} label="Quero falar com um especialista" variant="home-hero" />
-            <Link href="/fale-com-um-especialista/" className="inline-flex min-h-12 items-center justify-center rounded-md border border-primary-foreground/40 px-6 py-3 font-semibold text-primary-foreground hover:border-highlight hover:text-highlight">Enviar uma mensagem</Link>
+            <WhatsAppCta message={whatsappMessage} label="Falar com Magno Stiti de Paula" variant="home-hero" />
+            <Link href="/simulacao-de-consorcio/" className="inline-flex min-h-12 items-center justify-center rounded-md border border-primary-foreground/40 px-6 py-3 font-semibold text-primary-foreground hover:border-highlight hover:text-highlight">Simular meu plano ideal</Link>
           </div>
         </div>
       </section>
 
+      <TrustBar />
+
       <section className="section-padding-sm bg-background">
         <div className="container-custom">
           <AnswerBlock question="Quem é a Santa Sophia?">
-            <p>A Santa Sophia é uma empresa especializada em soluções de crédito por meio de consórcio.</p>
-            <p>Oferece soluções em consórcio para imóveis, veículos e empresas, conforme as modalidades disponíveis, com atendimento digital e consultivo para clientes de diferentes regiões do Brasil.</p>
+            <p>A Santa Sophia é uma consultoria especializada em consórcio e engenharia de crédito, representante autorizada Itaú Consórcios. Há 17 anos no mercado de crédito, nasceu em Ribeirão Preto (SP) e atende clientes de todo o Brasil de forma digital e consultiva.</p>
+            <p>Oferece soluções em consórcio para imóveis, construção e reforma, quitação de financiamento, veículos, caminhões e pesados, empresas e alavancagem patrimonial, conforme as modalidades disponíveis.</p>
             <Link href="/quem-somos/" className="inline-flex items-center gap-2 font-bold text-primary hover:underline">Conheça a Santa Sophia <ArrowRight className="size-4" aria-hidden="true" /></Link>
           </AnswerBlock>
         </div>
@@ -136,6 +148,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Reveal><ItauPillars /></Reveal>
 
       <Reveal><section className="section-padding bg-primary-deep text-primary-foreground">
         <div className="container-custom grid items-center gap-12 lg:grid-cols-[minmax(18rem,0.75fr)_1.25fr] lg:gap-20">

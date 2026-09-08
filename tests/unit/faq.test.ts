@@ -3,18 +3,44 @@ import {
   faqByCategory,
   faqByIds,
   faqEntries,
+  faqCategoryLabels,
   faqSchemaItems,
   parseFaqAnswer,
   segmentFaq,
   segmentFaqAll,
+  type FaqCategory,
   type SegmentFaqKey,
 } from "@/content/faq";
 
 describe("conteúdo do FAQ (fonte única página + JSON-LD)", () => {
-  it("tem as 20 perguntas aprovadas do faq.md, com ids únicos", () => {
-    expect(faqEntries).toHaveLength(20);
+  it("tem as 38 perguntas aprovadas (20 do faq.md v1 + 18 do FAQ Itaú), com ids únicos", () => {
+    expect(faqEntries).toHaveLength(38);
     const ids = faqEntries.map((e) => e.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("cobre as cinco categorias, todas com label e ao menos uma pergunta", () => {
+    const categorias = Object.keys(faqCategoryLabels) as FaqCategory[];
+    expect(categorias).toEqual(["consorcio", "imoveis", "veiculos", "empresas", "contratacao"]);
+    for (const categoria of categorias) {
+      expect(faqCategoryLabels[categoria].length, categoria).toBeGreaterThan(0);
+      expect(faqByCategory(categoria).length, categoria).toBeGreaterThan(0);
+    }
+    expect(faqCategoryLabels.contratacao).toBe("Contratação e pós-venda");
+    expect(faqByCategory("contratacao")).toHaveLength(8);
+    // toda entrada pertence a uma categoria conhecida
+    for (const entry of faqEntries) {
+      expect(categorias, entry.id).toContain(entry.category);
+    }
+  });
+
+  it("as rotas novas têm FAQ relacionado e nenhuma pergunta duplicada com a de imóveis", () => {
+    for (const key of ["construction", "payoff", "leverage"] as SegmentFaqKey[]) {
+      expect(segmentFaq[key].related.length, key).toBe(3);
+      expect(segmentFaqAll(key).length, key).toBe(3);
+    }
+    expect(segmentFaq["real-estate"].items).toContain("construir-terreno-proprio");
+    expect(segmentFaq["real-estate"].items).toContain("quitar-financiamento");
   });
 
   it("nenhuma resposta contém HTML apesar do nome answerHtml (nada para injetar)", () => {

@@ -8,6 +8,14 @@ interface ContactPageProps {
   simulation?: boolean;
 }
 
+const simulationSteps = [
+  "Preencha o formulário com seus dados de contato.",
+  "Escolha o tipo de bem ou objetivo.",
+  "Informe o valor de crédito ou de parcela que cabe no seu planejamento.",
+  "Receba de um especialista a comparação das cartas e grupos mais adequados ao seu perfil.",
+  "Decida com calma — a contratação só acontece com você acompanhado.",
+];
+
 export default function ContactPage({ simulation = false }: ContactPageProps) {
   const message = simulation ? "Olá, quero solicitar uma simulação personalizada de consórcio." : "Olá, quero falar com um especialista em consórcio.";
   return (
@@ -19,7 +27,22 @@ export default function ContactPage({ simulation = false }: ContactPageProps) {
           <ContactForm />
         </div>
       </section>
-      <section className="section-padding bg-background"><div className="container-custom"><h2 className="mb-8 text-[clamp(1.6rem,3vw,2.4rem)]">Escolha seu canal de atendimento</h2><ContactChannels message={message} /></div></section>
+      {simulation ? (
+        <section className="section-padding bg-background">
+          <div className="container-custom">
+            <h2 className="text-[clamp(1.6rem,3vw,2.4rem)]">Como funciona a simulação</h2>
+            <ol className="mt-10 grid gap-8 md:grid-cols-3 lg:grid-cols-5">
+              {simulationSteps.map((step, index) => (
+                <li key={step} className="border-t border-border pt-6">
+                  <span className="font-heading text-4xl font-extrabold text-primary/60" aria-hidden="true">{`0${index + 1}`}</span>
+                  <p className="mt-4 text-muted-foreground">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      ) : null}
+      <section className={`section-padding ${simulation ? "bg-surface" : "bg-background"}`}><div className="container-custom"><h2 className="mb-8 text-[clamp(1.6rem,3vw,2.4rem)]">Escolha seu canal de atendimento</h2><ContactChannels message={message} /></div></section>
       <section className="section-padding bg-primary-deep text-primary-foreground"><div className="container-custom max-w-4xl text-center"><h2 className="text-[clamp(1.6rem,3vw,2.4rem)] text-primary-foreground">Você não precisa decidir agora.</h2><p className="mt-5 text-lg text-primary-foreground/80">Mas pode descobrir agora o que é possível.</p><p className="mt-4 text-primary-foreground/80">Sem promessa de contemplação. Sem fórmula mágica. Sem pressão.</p><p className="mt-4 font-semibold text-primary-foreground"><em>Só uma conversa séria sobre o próximo passo.</em></p></div></section>
       <section className="section-padding-sm bg-background"><div className="container-custom"><ComplianceNote /></div></section>
     </Layout>

@@ -4,7 +4,7 @@ import { Layout } from "@/components/site/Layout";
 import { PageHero } from "@/components/site/PageHero";
 import { FAQ_DISCLAIMER, faqByCategory, faqCategoryLabels, type FaqCategory } from "@/content/faq";
 
-const categories: FaqCategory[] = ["consorcio", "imoveis", "veiculos", "empresas"];
+const categories: FaqCategory[] = ["consorcio", "imoveis", "veiculos", "empresas", "contratacao"];
 
 export default function FaqPage() {
   return (

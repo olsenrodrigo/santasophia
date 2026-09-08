@@ -4,15 +4,19 @@ import logo from "@/assets/brand/logo-horizontal-white.png";
 import { EMAIL, INSTAGRAM, PHONE_DISPLAY, PHONE_HOURS, WHATSAPP_BASE_URL, WHATSAPP_DISPLAY } from "@/seo/constants";
 import { trackEvent } from "@/lib/analytics";
 import { ComplianceNote } from "./ComplianceNote";
+import { ItauSeal } from "./ItauSeal";
 
 const footerGroups = [
   {
     title: "Consórcios",
     links: [
       ["Imóveis", "/consorcio-de-imoveis/"],
+      ["Construção e reforma", "/construcao-e-reforma/"],
+      ["Quitação de financiamento", "/quitacao-de-financiamento/"],
       ["Veículos", "/consorcio-de-veiculos/"],
       ["Caminhões e Pesados", "/consorcio-de-caminhoes/"],
       ["Empresas", "/consorcio-para-empresas/"],
+      ["Alavancagem financeira", "/alavancagem-financeira/"],
     ],
   },
   {
@@ -39,7 +43,10 @@ export function Footer() {
     <footer className="bg-primary-deep text-primary-foreground">
       <div className="container-custom grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-5">
         <div className="md:col-span-2">
-          <img src={logo} alt="Santa Sophia Consórcios" width="248" height="45" className="mb-6 h-auto w-56" loading="lazy" />
+          <div className="mb-6 flex flex-wrap items-center gap-x-8 gap-y-5">
+            <img src={logo} alt="Santa Sophia Consórcios" width="248" height="45" className="h-auto w-56" loading="lazy" />
+            <ItauSeal on="dark" className="w-[180px]" />
+          </div>
           <p className="max-w-sm text-sm text-primary-foreground/80">Consórcio com estratégia. Crédito com propósito.</p>
           <p className="mt-3 max-w-sm text-sm text-primary-foreground/80">Atendimento para clientes em todo o Brasil.</p>
           <div className="mt-6 flex gap-3">
@@ -84,7 +91,8 @@ export function Footer() {
         <div className="container-custom py-8">
           <p className="mb-4 text-xs text-primary-foreground/70">Sistema de consórcios regulado pelo Banco Central do Brasil e pela Lei nº 11.795/2008. Consulte administradoras autorizadas. Informações institucionais: ABAC.</p>
           <ComplianceNote className="text-primary-foreground/70" />
-          <p className="mt-6 text-xs text-primary-foreground/60">Santa Sophia Consórcios. Todos os direitos reservados.</p>
+          <p className="mt-6 text-xs text-primary-foreground/70">Santa Sophia Consórcios · CNPJ 05.046.442/0001-92 · Representante autorizada Itaú Consórcios</p>
+          <p className="mt-2 text-xs text-primary-foreground/60">Santa Sophia Consórcios. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

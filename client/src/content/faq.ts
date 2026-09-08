@@ -1,4 +1,4 @@
-export type FaqCategory = "consorcio" | "imoveis" | "veiculos" | "empresas";
+export type FaqCategory = "consorcio" | "imoveis" | "veiculos" | "empresas" | "contratacao";
 
 export interface FaqEntry {
   id: string;
@@ -59,6 +59,7 @@ export const faqCategoryLabels: Record<FaqCategory, string> = {
   imoveis: "Imóveis",
   veiculos: "Veículos",
   empresas: "Empresas",
+  contratacao: "Contratação e pós-venda",
 };
 
 export const FAQ_DISCLAIMER =
@@ -464,6 +465,114 @@ Para uma empresa, o caminhão não é apenas um bem.
 
 Por isso, a estratégia de aquisição precisa considerar o negócio como um todo.`,
   },
+  {
+    id: "quais-bens",
+    category: "imoveis",
+    question: "Quais bens posso adquirir com o consórcio Itaú?",
+    answerHtml: `Imóveis urbanos (residenciais, comerciais e terrenos), construção e reforma estrutural, veículos leves novos ou usados, motos (inclusive elétricas), e veículos pesados como caminhões, vans, ônibus e implementos rodoviários. Também é possível usar o crédito para quitar um financiamento já existente em seu nome.`,
+  },
+  {
+    id: "construir-terreno-proprio",
+    category: "imoveis",
+    question: "Posso construir em terreno próprio com o consórcio?",
+    answerHtml: `Sim. Com terreno quitado, projeto aprovado e alvará, o crédito contemplado é liberado integralmente na conta do consorciado, sem reembolso por etapas de obra. O terreno fica alienado em garantia até a quitação.`,
+  },
+  {
+    id: "quitar-financiamento",
+    category: "imoveis",
+    question: "Posso usar o consórcio para quitar meu financiamento?",
+    answerHtml: `Sim. A carta de crédito do consórcio imobiliário pode quitar um financiamento ativo em seu nome, substituindo os juros bancários pela taxa de administração diluída. A vantagem depende do saldo, do prazo e do grupo — e é avaliada caso a caso.`,
+  },
+  {
+    id: "fgts-lance",
+    category: "imoveis",
+    question: "Posso usar o FGTS para dar um lance?",
+    answerHtml: `Sim, exclusivamente em cartas de imóvel residencial e seguindo as regras da Caixa Econômica Federal, incluindo a exigência de não possuir outro imóvel em seu nome. É necessário comprovar o saldo em até 5 dias úteis após a contemplação.`,
+  },
+  {
+    id: "tempo-contemplacao",
+    category: "consorcio",
+    question: "Quanto tempo leva para eu ser contemplado?",
+    answerHtml: `Não há prazo garantido: a contemplação depende de sorteio mensal ou da oferta de um lance vencedor em assembleia. Todos os participantes em dia com as parcelas são contemplados até o encerramento do grupo — a estratégia de lance pode ajudar a antecipar esse momento.`,
+  },
+  {
+    id: "taxa-administracao",
+    category: "consorcio",
+    question: "O que é a taxa de administração?",
+    answerHtml: `É o percentual cobrado sobre o valor da carta de crédito para remunerar a administradora pela gestão do grupo. Está descrita no contrato e é diluída ao longo das parcelas — sem surpresas. O percentual varia por grupo e prazo; um especialista informa o valor vigente.`,
+  },
+  {
+    id: "parcela-muda",
+    category: "consorcio",
+    question: "Minha parcela pode mudar ao longo do consórcio?",
+    answerHtml: `Sim. As parcelas são reajustadas periodicamente para preservar o poder de compra do grupo. Em imóveis, o reajuste segue o INCC no mês de aniversário do grupo; em veículos, pode seguir a tabela FIPE/FIAT, o IPCA ou uma taxa pré-fixada, conforme definido em contrato.`,
+  },
+  {
+    id: "composicao-parcela",
+    category: "consorcio",
+    question: "O que compõe o valor da minha parcela?",
+    answerHtml: `Fundo comum (o valor da carta de crédito), fundo de reserva (garantia de segurança financeira do grupo, devolvido ao final se não utilizado), taxa de administração e, opcionalmente, seguro prestamista.`,
+  },
+  {
+    id: "lance-embutido",
+    category: "consorcio",
+    question: "O que é lance embutido?",
+    answerHtml: `É a possibilidade de usar parte da própria carta de crédito como lance, sem desembolsar esse valor do bolso. No Itaú, o lance embutido é limitado a 30% do crédito, um limite que protege o grupo e mantém as médias de lance equilibradas. O valor embutido é abatido da carta na contemplação.`,
+  },
+  {
+    id: "lance-fixo",
+    category: "consorcio",
+    question: "Como funciona o lance fixo?",
+    answerHtml: `É uma modalidade em que o percentual do lance é definido pelo regulamento do grupo, e a contemplação entre os que ofertam o lance fixo pode ocorrer por sorteio. Pode ser combinado com lance embutido e recursos próprios ou FGTS, conforme as regras do grupo.`,
+  },
+  {
+    id: "quem-pode-contratar",
+    category: "contratacao",
+    question: "Quem pode contratar um consórcio?",
+    answerHtml: `Qualquer pessoa maior de 18 anos (ou emancipada), correntista Itaú ou não, com o crédito aprovado em análise. Pessoas jurídicas também podem contratar.`,
+  },
+  {
+    id: "como-simular",
+    category: "contratacao",
+    question: "Como faço uma simulação?",
+    answerHtml: `Preencha o formulário no site com seus dados e o bem que deseja adquirir. Um especialista da Santa Sophia entra em contato para apresentar as melhores opções de carta de crédito e grupo para o seu perfil, sem compromisso.`,
+  },
+  {
+    id: "preciso-ser-itau",
+    category: "contratacao",
+    question: "Preciso ser cliente do Itaú para contratar?",
+    answerHtml: `Não. Correntistas podem contratar pelo app ou site do Itaú; quem não é correntista contrata por meio da simulação com um especialista Santa Sophia, representante autorizado Itaú Consórcios.`,
+  },
+  {
+    id: "direto-itau-ou-santa-sophia",
+    category: "contratacao",
+    question: "Qual a diferença entre contratar direto com o Itaú ou com a Santa Sophia?",
+    answerHtml: `A Santa Sophia é representante autorizada Itaú Consórcios: você tem exatamente a mesma solidez, as mesmas condições contratuais e a mesma segurança do Itaú, somadas a um atendimento consultivo, próximo e especializado, que te ajuda a escolher o grupo, a estratégia de lance e o momento certo de agir — do início ao fim da sua jornada.`,
+  },
+  {
+    id: "fui-contemplado",
+    category: "contratacao",
+    question: "Fui contemplado — e agora?",
+    answerHtml: `Você recebe uma carta e um e-mail (e, em caso de lance, também um telegrama) com a confirmação. É preciso efetuar o pagamento do lance, quando aplicável, em até 5 dias úteis, passar por nova análise de crédito e enviar a documentação necessária para dar início ao processo de compra do bem.`,
+  },
+  {
+    id: "posso-cancelar",
+    category: "contratacao",
+    question: "Posso cancelar meu consórcio?",
+    answerHtml: `Sim. Nos primeiros 7 dias após a contratação, o cancelamento garante a devolução integral do valor pago. Após esse prazo, o valor contribuído ao fundo comum é devolvido por meio de sorteios de desistentes ou no encerramento do grupo, descontadas eventuais multas contratuais.`,
+  },
+  {
+    id: "alternativas-cancelamento",
+    category: "contratacao",
+    question: "Existem alternativas ao cancelamento?",
+    answerHtml: `Sim — você pode reduzir o valor da carta de crédito, transferir a cota para outra pessoa interessada (cessão de cota) ou revender a cota por meio de um parceiro especializado. A Santa Sophia pode te orientar sobre a opção mais vantajosa para o seu caso.`,
+  },
+  {
+    id: "seguro-prestamista",
+    category: "contratacao",
+    question: "O que é o seguro prestamista?",
+    answerHtml: `É um seguro opcional, diluído nas parcelas, que quita o saldo devedor em caso de morte ou invalidez permanente do consorciado, entregando o bem ou o crédito à família. Deve ser avaliado caso a caso.`,
+  },
 ];
 
 export function faqByCategory(category: FaqCategory): FaqEntry[] {
@@ -492,8 +601,28 @@ export function faqSchemaItems(entries: FaqEntry[] = faqEntries) {
  */
 export const segmentFaq = {
   "real-estate": {
-    items: ["comprar-imovel", "consorcio-imovel-vale-a-pena", "comprar-apartamento", "comprar-terreno", "construcao-reforma"],
+    items: [
+      "comprar-imovel",
+      "consorcio-imovel-vale-a-pena",
+      "comprar-apartamento",
+      "comprar-terreno",
+      "construcao-reforma",
+      "construir-terreno-proprio",
+      "quitar-financiamento",
+    ],
     related: ["como-funciona-contemplacao", "como-funciona-lance", "como-escolher-consorcio"],
+  },
+  construction: {
+    items: [],
+    related: ["construcao-reforma", "fgts-lance", "como-funciona-contemplacao"],
+  },
+  payoff: {
+    items: [],
+    related: ["consorcio-ou-financiamento", "como-funciona-lance", "carta-de-credito"],
+  },
+  leverage: {
+    items: [],
+    related: ["carta-de-credito", "como-funciona-contemplacao", "posso-cancelar"],
   },
   vehicles: {
     items: ["consorcio-carro-vale-a-pena", "consorcio-ou-financiamento-carro"],

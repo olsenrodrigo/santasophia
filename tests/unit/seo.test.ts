@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { absUrl, whatsappUrl, SITE_URL, WHATSAPP_BASE_URL } from "@/seo/constants";
 import { findRouteMeta, notFoundRoute, routes } from "@/seo/routes";
+import { faqPageJsonLd } from "@/seo/jsonld";
+import { faqSchemaItems, segmentFaq, segmentFaqAll, type SegmentFaqKey } from "@/content/faq";
 import { buildHead } from "../../script/prerender";
 
 describe("absUrl", () => {
@@ -28,12 +30,37 @@ describe("whatsappUrl", () => {
 });
 
 describe("registro de rotas (fonte única de SEO)", () => {
-  it("tem 13 rotas, todas com trailing slash e paths únicos", () => {
-    expect(routes).toHaveLength(13);
+  it("tem 16 rotas (15 indexáveis + /404/), todas com trailing slash e paths únicos", () => {
+    expect(routes).toHaveLength(16);
+    expect(routes.filter((r) => !r.noindex)).toHaveLength(15);
     const paths = routes.map((r) => r.path);
     expect(new Set(paths).size).toBe(paths.length);
     for (const p of paths) {
       expect(p === "/" || p.endsWith("/"), `sem trailing slash: ${p}`).toBe(true);
+    }
+  });
+
+  it("registra as três rotas de solução com H1 próprio, OG próprio e JSON-LD de Service", () => {
+    const novas = ["/construcao-e-reforma/", "/quitacao-de-financiamento/", "/alavancagem-financeira/"];
+    for (const path of novas) {
+      const route = findRouteMeta(path);
+      expect(route.path, path).toBe(path);
+      expect(route.noindex ?? false).toBe(false);
+      expect(route.priority).toBe(0.9);
+      expect(route.h1.length).toBeGreaterThan(0);
+      expect(route.ogImage).toBe(`/og/${path.slice(1, -1)}.jpg`);
+      const tipos = route.jsonLd().map((schema) => (schema as { "@type": string })["@type"]);
+      expect(tipos).toContain("BreadcrumbList");
+      expect(tipos).toContain("Service");
+      expect(tipos).toContain("FAQPage");
+    }
+  });
+
+  it("todo FAQPage declarado só contém perguntas que a própria página exibe", () => {
+    for (const key of Object.keys(segmentFaq) as SegmentFaqKey[]) {
+      const visiveis = segmentFaqAll(key).map((entry) => entry.question);
+      const schema = faqPageJsonLd(faqSchemaItems(segmentFaqAll(key)));
+      expect(schema.mainEntity.map((item) => item.name)).toEqual(visiveis);
     }
   });
 

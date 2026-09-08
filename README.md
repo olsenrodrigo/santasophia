@@ -72,10 +72,49 @@ A frase aprovada “Consórcio não é dinheiro rápido” é uma negação info
 grep -rniE "dinheiro r[áa]pido" dist/public --include='*.html' | grep -viE "não é dinheiro r[áa]pido"
 ```
 
+## Rotas
+
+O registro único das rotas é `client/src/seo/routes.ts`. Ele alimenta o roteador (`client/src/appRouteRegistry.tsx`), o pré-render e o `sitemap.xml`. São 16 rotas: 15 indexáveis e `/404/` com `noindex`. Todas usam barra final, inclusive nos links internos.
+
+| URL | Página |
+|---|---|
+| `/` | Home |
+| `/consorcio-de-imoveis/` | Consórcio de imóveis |
+| `/construcao-e-reforma/` | Construção e reforma |
+| `/quitacao-de-financiamento/` | Quitação de financiamento |
+| `/consorcio-de-veiculos/` | Consórcio de veículos |
+| `/consorcio-de-caminhoes/` | Consórcio de caminhões e pesados |
+| `/consorcio-para-empresas/` | Consórcio para empresas |
+| `/alavancagem-financeira/` | Alavancagem financeira |
+| `/o-que-e-consorcio/` | Guia do sistema de consórcios |
+| `/quem-somos/` | Quem somos |
+| `/magno-stiti-de-paula/` | Magno Stiti de Paula |
+| `/perguntas-frequentes/` | Hub de FAQ |
+| `/simulacao-de-consorcio/` | Simulação |
+| `/fale-com-um-especialista/` | Contato |
+| `/politica-de-privacidade/` | Privacidade |
+| `/404/` | Página não encontrada (noindex) |
+
+Cada rota indexável tem uma imagem OpenGraph 1200×630 em `client/public/og/`, no mesmo padrão navy: fundo `#061240` com o arco do símbolo em marca-d'água, logo horizontal branco, filete `#FFC82B`, título em Plus Jakarta Sans e assinatura amarela.
+
 ## Foto do Magno
 
 A foto aprovada já está integrada em `client/src/components/site/MagnoPortrait.tsx`, servida como `<picture>` com WebP e JPEG a partir de `client/src/assets/brand/`. O componente define dimensões explícitas, texto alternativo descritivo, `loading="lazy"` na home e `fetchpriority="high"` na página do Magno.
 
-O original tem 300×375, o que fixa o `max-w-[300px]` do componente: acima disso a imagem amolece em tela retina. Se um original em resolução maior for fornecido, substitua os dois arquivos em `assets/brand/` e relaxe esse limite.
+O arquivo atual tem 853×1066 (recorte 4:5 do original vertical entregue em setembro de 2026, que substituiu a versão de 300×375). Com essa resolução o retrato suporta o `max-w-[420px]` do componente sem amolecer em tela retina. Se a origem mudar de novo, substitua `magno.jpg` e `magno.webp` em `assets/brand/` e reavalie o limite junto com o `width`/`height` do `img`.
 
 Não use foto de banco de imagens ou imagem não aprovada.
+
+## Selo Itaú e assets de imprensa
+
+`client/src/assets/brand/selo-itau-representante.{png,webp}` (traço escuro, para fundo claro) e `selo-itau-representante-branco.{png,webp}` (para fundo navy) são o selo "Consórcio Itaú. Representante Autorizado", da própria administradora. O componente `ItauSeal` escolhe a arte pela prop `on="light" | "dark"` e mantém o mesmo texto alternativo.
+
+`client/src/assets/press/` guarda a foto da equipe e três recortes de reportagens da revista Revide (Ribeirão Preto, 2016–2018):
+
+- `equipe-santa-sophia.{jpg,webp}` — usada em `/quem-somos/` com legenda genérica. A foto é de 2019 e **ninguém é nomeado**: não se sabe quem segue na empresa.
+- `revide-na-contramao-da-crise.{jpg,webp}` e `revide-oportunidade-de-investimento.{jpg,webp}` — seção "Na mídia" de `/quem-somos/`.
+- `revide-magno-andre.{jpg,webp}` — seção "Na mídia" de `/magno-stiti-de-paula/`.
+
+As legendas citam veículo, cidade e ano; não reproduzem o texto das matérias. Os recortes foram cortados acima do rodapé das páginas originais porque ali havia endereço físico, que o cliente decidiu não publicar em lugar nenhum.
+
+O vídeo "Feed Consórcio construção" recebido junto com esses insumos **não é usado**: traz a marca antiga ("Santa Sophia Negócios Imobiliários", logo magenta) e a promessa "sem juros em tempo recorde", que contraria a regra de nunca prometer prazo de contemplação. Fica registrado aqui caso o cliente decida regravar.

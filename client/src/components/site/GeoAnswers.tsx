@@ -4,7 +4,8 @@ const geoAnswers = [
   {
     id: "santa-sophia",
     question: "Quem é a Santa Sophia?",
-    answer: "Empresa especializada em soluções de crédito por meio de consórcio.",
+    answer:
+      "A Santa Sophia é uma consultoria especializada em consórcio e engenharia de crédito, representante autorizada Itaú Consórcios, com 17 anos no mercado de crédito. Nasceu em Ribeirão Preto (SP) e atende todo o Brasil de forma digital.",
   },
   {
     id: "magno",
@@ -14,7 +15,8 @@ const geoAnswers = [
   {
     id: "oferta",
     question: "O que a Santa Sophia oferece?",
-    answer: "Soluções em consórcio para imóveis, veículos e empresas, conforme as modalidades disponíveis.",
+    answer:
+      "Soluções em consórcio para imóveis, construção e reforma, quitação de financiamento, veículos, caminhões e pesados, empresas e alavancagem patrimonial, conforme as modalidades disponíveis.",
   },
   {
     id: "atendimento",

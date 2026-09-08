@@ -5,9 +5,12 @@ import logo from "@/assets/brand/logo-horizontal.png";
 
 const consortiumLinks = [
   ["Imóveis", "/consorcio-de-imoveis/"],
+  ["Construção e reforma", "/construcao-e-reforma/"],
+  ["Quitação de financiamento", "/quitacao-de-financiamento/"],
   ["Veículos", "/consorcio-de-veiculos/"],
   ["Caminhões e Pesados", "/consorcio-de-caminhoes/"],
   ["Empresas", "/consorcio-para-empresas/"],
+  ["Alavancagem financeira", "/alavancagem-financeira/"],
 ] as const;
 
 const mainLinks = [
@@ -72,7 +75,7 @@ export function Navbar() {
               Consórcios
               <ChevronDown className={`size-4 transition-transform group-hover:rotate-180 ${consortiumOpen ? "rotate-180" : ""}`} aria-hidden="true" />
             </button>
-            <div id="menu-consorcios" className={`${consortiumOpen ? "visible translate-y-0" : "invisible translate-y-2"} absolute left-0 top-full w-64 rounded-xl border border-border bg-background p-2 shadow-card transition-transform group-hover:visible group-hover:translate-y-0`}>
+            <div id="menu-consorcios" className={`${consortiumOpen ? "visible translate-y-0" : "invisible translate-y-2"} absolute left-0 top-full grid w-[34rem] grid-cols-2 gap-x-2 rounded-xl border border-border bg-background p-2 shadow-card transition-transform group-hover:visible group-hover:translate-y-0`}>
               {consortiumLinks.map(([label, href]) => (
                 <Link key={href} href={href} className="block rounded-md px-3 py-2.5 text-sm font-medium text-foreground hover:bg-surface hover:text-primary" onClick={() => setConsortiumOpen(false)}>
                   {label}

@@ -25,9 +25,12 @@ export interface RouteMeta {
 export type RoutePage =
   | "home"
   | "real-estate"
+  | "construction"
+  | "payoff"
   | "vehicles"
   | "trucks"
   | "business"
+  | "leverage"
   | "guide"
   | "about"
   | "magno"
@@ -77,6 +80,48 @@ export const routes: RouteMeta[] = [
           "Planejamento de consórcio para imóveis, conforme as regras da administradora e do contrato.",
         ),
         faqPageJsonLd(faqSchemaItems(segmentFaqAll("real-estate"))),
+      ]),
+  },
+  {
+    path: "/construcao-e-reforma/",
+    page: "construction",
+    ogImage: "/og/construcao-e-reforma.jpg",
+    title: "Consórcio para Construção e Reforma | Santa Sophia",
+    description:
+      "Construa ou reforme com consórcio Itaú: crédito liberado integralmente na conta após a contemplação, sem reembolso por etapas. Fale com a Santa Sophia.",
+    h1: "Construção e reforma: o crédito integral na sua conta, no seu ritmo",
+    breadcrumbLabel: "Construção e reforma",
+    changefreq: "monthly",
+    priority: 0.9,
+    jsonLd: () =>
+      internalSchemas("/construcao-e-reforma/", [
+        serviceJsonLd(
+          "/construcao-e-reforma/",
+          "Consórcio para construção e reforma",
+          "Planejamento de consórcio imobiliário para construção em terreno próprio e reforma, conforme as regras da administradora e do contrato.",
+        ),
+        faqPageJsonLd(faqSchemaItems(segmentFaqAll("construction"))),
+      ]),
+  },
+  {
+    path: "/quitacao-de-financiamento/",
+    page: "payoff",
+    ogImage: "/og/quitacao-de-financiamento.jpg",
+    title: "Quitação de Financiamento com Consórcio | Santa Sophia",
+    description:
+      "Use a carta de crédito do consórcio imobiliário para quitar um financiamento ativo e trocar juros por taxa de administração. Análise com um especialista da Santa Sophia.",
+    h1: "Quitação de financiamento imobiliário: troque os juros por uma taxa de administração",
+    breadcrumbLabel: "Quitação de financiamento",
+    changefreq: "monthly",
+    priority: 0.9,
+    jsonLd: () =>
+      internalSchemas("/quitacao-de-financiamento/", [
+        serviceJsonLd(
+          "/quitacao-de-financiamento/",
+          "Quitação de financiamento com consórcio",
+          "Análise da quitação de financiamento imobiliário com carta de crédito de consórcio, conforme as regras da administradora e do contrato.",
+        ),
+        faqPageJsonLd(faqSchemaItems(segmentFaqAll("payoff"))),
       ]),
   },
   {
@@ -140,6 +185,27 @@ export const routes: RouteMeta[] = [
           "Planejamento de consórcio para máquinas, equipamentos, imóveis e frota, conforme as regras da administradora e do contrato.",
         ),
         faqPageJsonLd(faqSchemaItems(segmentFaqAll("business"))),
+      ]),
+  },
+  {
+    path: "/alavancagem-financeira/",
+    page: "leverage",
+    ogImage: "/og/alavancagem-financeira.jpg",
+    title: "Alavancagem Financeira com Consórcio | Santa Sophia",
+    description:
+      "Estratégias de alavancagem patrimonial com consórcio: imóvel para locação, cessão de cota contemplada e seguro prestamista. Sem promessa de retorno. Fale com a Santa Sophia.",
+    h1: "Alavancagem financeira: quando o consórcio é estratégia, não só compra",
+    breadcrumbLabel: "Alavancagem financeira",
+    changefreq: "monthly",
+    priority: 0.9,
+    jsonLd: () =>
+      internalSchemas("/alavancagem-financeira/", [
+        serviceJsonLd(
+          "/alavancagem-financeira/",
+          "Alavancagem patrimonial com consórcio",
+          "Orientação sobre usos estratégicos do crédito de consórcio, conforme as regras da administradora, do grupo e do contrato. Sem promessa de retorno.",
+        ),
+        faqPageJsonLd(faqSchemaItems(segmentFaqAll("leverage"))),
       ]),
   },
   {
