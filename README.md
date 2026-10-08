@@ -64,6 +64,8 @@ Todas são opcionais: o site sobe sem nenhuma delas, degradando funcionalidade d
 
 Variáveis iniciadas por `VITE_` são incorporadas ao build. Portanto, devem estar configuradas antes de executar `npm run build`.
 
+As demais (`TRUST_PROXY`, `SMTP_*`, `DATABASE_URL`, `CONTACT_EMAIL`) são lidas pelo servidor ao iniciar: `npm run start` carrega o `.env` da raiz quando ele existe (`node --env-file-if-exists`), então basta reiniciar o processo depois de editá-lo. Variável já definida no ambiente do processo (como o `PORT` passado pelo pm2) prevalece sobre o `.env`.
+
 ## Auditoria de compliance
 
 A frase aprovada “Consórcio não é dinheiro rápido” é uma negação informativa. A auditoria exclui somente essa formulação e continua apontando ocorrências afirmativas:
