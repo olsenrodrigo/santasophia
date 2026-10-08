@@ -31,7 +31,9 @@ export function buildHead(route: RouteMeta): string {
   return [
     `<title>${escapeHtml(route.title)}</title>`,
     `<meta name="description" content="${escapeHtml(route.description)}" />`,
-    `<link rel="canonical" href="${canonical}" />`,
+    // A página 404 é servida em qualquer URL inexistente; um canonical para
+    // /404/ só convidaria o Google a rastrear a página de erro como se fosse real.
+    route.noindex ? "" : `<link rel="canonical" href="${canonical}" />`,
     gscVerification
       ? `<meta name="google-site-verification" content="${escapeHtml(gscVerification)}" />`
       : "",

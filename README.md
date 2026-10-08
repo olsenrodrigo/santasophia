@@ -97,6 +97,15 @@ O registro único das rotas é `client/src/seo/routes.ts`. Ele alimenta o rotead
 
 Cada rota indexável tem uma imagem OpenGraph 1200×630 em `client/public/og/`, no mesmo padrão navy: fundo `#061240` com o arco do símbolo em marca-d'água, logo horizontal branco, filete `#FFC82B`, título em Plus Jakarta Sans e assinatura amarela.
 
+## URLs do site antigo
+
+Antes deste site o domínio hospedava um WordPress, e o Google continua rastreando o que conheceu dele. `server/legacy.ts` responde essas URLs em produção:
+
+- **301** para a página nova quando há equivalente (ex.: `/consorcio-imoveis/` → `/consorcio-de-imoveis/`, posts antigos sobre construção → `/construcao-e-reforma/`);
+- **410** para o que não volta: `/wp-*`, feeds, `/author/`, `/search/`, `?s=`/`?p=`, páginas demo do tema e `cgi-sys/`.
+
+Além disso, `/404/` acessada direto responde 404 (não 200) e `/rota/index.html` redireciona para `/rota/`. Os casos estão em `tests/api/legacy.api.test.ts`. Ao descobrir outra URL antiga no Search Console, acrescente-a em `REDIRECTS` ou nos padrões de 410.
+
 ## Foto do Magno
 
 A foto aprovada já está integrada em `client/src/components/site/MagnoPortrait.tsx`, servida como `<picture>` com WebP e JPEG a partir de `client/src/assets/brand/`. O componente define dimensões explícitas, texto alternativo descritivo, `loading="lazy"` na home e `fetchpriority="high"` na página do Magno.

@@ -2,6 +2,9 @@
 
 Runbook do primeiro deploy e das atualizações seguintes. Os arquivos deste diretório são modelos: copie-os para os caminhos do sistema, não aponte o systemd nem o Nginx para dentro do repositório.
 
+> **Como a produção roda hoje (out/2026).** A VPS não usa a unit systemd deste diretório: o app roda no pm2 do usuário `claude-user` na porta `3023`, e as atualizações passam pelo `/var/www/atualizar-santasophia.sh` (git pull → npm install → build → restart no pm2). O `nginx.conf` daqui espelha o server block instalado, incluindo a porta `3023`. O restante deste runbook vale como referência para uma instalação do zero.
+
+
 | Arquivo | Destino na VPS |
 |---|---|
 | `santasophia.service` | `/etc/systemd/system/santasophia.service` |

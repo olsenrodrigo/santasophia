@@ -103,7 +103,12 @@ describe("buildHead (prerender)", () => {
   it("emite title, description, canonical absoluto e og:image absoluto para toda rota", () => {
     for (const route of routes) {
       const head = buildHead(route);
-      expect(head).toContain(`<link rel="canonical" href="${absUrl(route.path)}" />`);
+      if (route.noindex) {
+        // A 404 é servida em qualquer URL inexistente: canonical para /404/ seria falso.
+        expect(head, route.path).not.toContain('rel="canonical"');
+      } else {
+        expect(head).toContain(`<link rel="canonical" href="${absUrl(route.path)}" />`);
+      }
       expect(head).toContain("<title>");
       expect(head).toContain('og:image" content="https://');
       expect(head).toContain('application/ld+json');
