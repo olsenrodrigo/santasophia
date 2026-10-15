@@ -29,7 +29,7 @@ async function freePort(): Promise<number> {
 
 /**
  * Sobe o bundle real de produção (dist/index.cjs) num diretório temporário,
- * sem DATABASE_URL/SMTP_USER (força o fallback JSONL, sem e-mail), capturando
+ * sem DATABASE_URL/RESEND_API_KEY/SMTP_USER (força o fallback JSONL, sem e-mail), capturando
  * stdout+stderr — necessário para o INV-5 (nenhum dado pessoal em log).
  */
 export async function startTestServer(): Promise<TestServer> {
@@ -37,6 +37,7 @@ export async function startTestServer(): Promise<TestServer> {
   const port = await freePort();
   const env = { ...process.env, PORT: String(port), NODE_ENV: "production" };
   delete env.DATABASE_URL;
+  delete env.RESEND_API_KEY;
   delete env.SMTP_USER;
 
   const child = spawn(process.execPath, [SERVER_BUNDLE], { cwd, env });

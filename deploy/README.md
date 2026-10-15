@@ -104,7 +104,7 @@ curl -s  https://santasophiaconsorcios.com.br/sitemap.xml | grep -c "<loc>"   # 
 curl -s  https://santasophiaconsorcios.com.br/ | grep -o "<h1[^>]*>[^<]*"     # H1 sem JS
 ```
 
-Teste o formulário de contato de ponta a ponta e confirme se o e-mail chegou. Sem `SMTP_USER` configurado ele responde `201` e grava no JSONL sem notificar ninguém — o sucesso na tela não prova que o lead foi entregue.
+Teste o formulário de contato de ponta a ponta e confirme se o e-mail chegou. Sem `RESEND_API_KEY` (ou `SMTP_USER`) configurado ele responde `201` e grava no JSONL sem notificar ninguém — o sucesso na tela não prova que o lead foi entregue.
 
 ## Diagnóstico
 

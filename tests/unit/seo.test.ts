@@ -23,7 +23,7 @@ describe("whatsappUrl", () => {
   it("aponta para o número aprovado pelo cliente e escapa a mensagem", () => {
     const url = whatsappUrl("Olá, Magno & equipe?");
     expect(url.startsWith(`${WHATSAPP_BASE_URL}?text=`)).toBe(true);
-    expect(WHATSAPP_BASE_URL).toBe("https://wa.me/5516991972435");
+    expect(WHATSAPP_BASE_URL).toBe("https://wa.me/5516997530408");
     expect(url).toContain(encodeURIComponent("Olá, Magno & equipe?"));
     expect(url).not.toContain(" ");
   });

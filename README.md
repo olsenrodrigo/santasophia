@@ -56,15 +56,17 @@ Todas são opcionais: o site sobe sem nenhuma delas, degradando funcionalidade d
 - `VITE_GA_ID`: ID de medição do Google Analytics 4, por exemplo `G-XXXXXXXXXX`. O GA4 só é carregado no build de produção quando esta variável existe. **Ainda não configurado** — sem ele o site não tem analytics.
 - `VITE_GSC_VERIFICATION`: token de verificação do Google Search Console inserido nas páginas durante o build. **Não é necessário neste projeto**: a verificação do domínio é feita por registro DNS. A variável continua suportada caso a verificação por meta tag venha a ser preferida.
 - `DATABASE_URL`: conexão PostgreSQL usada para armazenar contatos. Sem ela, os contatos são gravados em `data/contact-messages.jsonl`.
-- `SMTP_HOST`: host do servidor SMTP. O padrão é `smtp.gmail.com`.
+- `RESEND_API_KEY`: chave do Resend, provedor principal de e-mail. Com ela, o SMTP é ignorado.
+- `MAIL_FROM`: remetente. O padrão é `Site Santa Sophia Consórcios <nao-responda@sintetiza.ai>` (o Resend só envia de domínio verificado na conta).
+- `SMTP_HOST`: host do servidor SMTP, usado só sem `RESEND_API_KEY`. O padrão é `smtp.gmail.com`.
 - `SMTP_PORT`: porta SMTP. O padrão é `587`.
-- `SMTP_USER`: usuário e remetente SMTP. Sem esta variável, o contato é salvo sem envio de e-mail.
+- `SMTP_USER`: usuário e remetente SMTP. Sem esta variável e sem `RESEND_API_KEY`, o contato é salvo sem envio de e-mail.
 - `SMTP_PASS`: senha ou token do usuário SMTP.
-- `CONTACT_EMAIL`: destinatário dos formulários. O padrão é `contato@santasophiaconsorcios.com.br`.
+- `CONTACT_EMAIL`: destinatário dos formulários. O padrão é `leads@santasophiaconsorcios.com.br`.
 
 Variáveis iniciadas por `VITE_` são incorporadas ao build. Portanto, devem estar configuradas antes de executar `npm run build`.
 
-As demais (`TRUST_PROXY`, `SMTP_*`, `DATABASE_URL`, `CONTACT_EMAIL`) são lidas pelo servidor ao iniciar: `npm run start` carrega o `.env` da raiz quando ele existe (`node --env-file-if-exists`), então basta reiniciar o processo depois de editá-lo. Variável já definida no ambiente do processo (como o `PORT` passado pelo pm2) prevalece sobre o `.env`.
+As demais (`TRUST_PROXY`, `RESEND_API_KEY`, `MAIL_FROM`, `SMTP_*`, `DATABASE_URL`, `CONTACT_EMAIL`) são lidas pelo servidor ao iniciar: `npm run start` carrega o `.env` da raiz quando ele existe (`node --env-file-if-exists`), então basta reiniciar o processo depois de editá-lo. Variável já definida no ambiente do processo (como o `PORT` passado pelo pm2) prevalece sobre o `.env`.
 
 ## Auditoria de compliance
 
