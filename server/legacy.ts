@@ -43,6 +43,7 @@ const GONE_PATHS = [
   /^\/(author|search|category|tag)(\/|$)/,
   /(^|\/)feed(\/|$)/, // /feed/, /comments/feed/, /<post>/feed/, /search/x/feed/rss2/
   /^\/15c42-web-agency-gb-/, // páginas demo do tema
+  /\*/, // curingas do robots.txt antigo (/*, /wp-content/*) que o Google rastreou como URL
 ];
 
 /** Parâmetros que só o WordPress usava (busca, post, página, feed). */
